@@ -27,6 +27,13 @@ const OutputHistoryTable = ({ data }) => {
     setSearchQuery(event.target.value);
   };
 
+  // Handle sorting
+  const handleSortRequest = (property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
+
   // Filter data based on search query
   const filteredData = data.filter((item) =>
     item.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -48,13 +55,31 @@ const OutputHistoryTable = ({ data }) => {
             <TableHead>
               <TableRow>
                 <TableCell>
-                  <TableSortLabel>Title</TableSortLabel>
+                  <TableSortLabel
+                    active={orderBy === 'title'}
+                    direction={orderBy === 'title' ? order : 'asc'}
+                    onClick={() => handleSortRequest('title')}
+                  >
+                    Title
+                  </TableSortLabel>
                 </TableCell>
                 <TableCell>
-                  <TableSortLabel>Type</TableSortLabel>
+                  <TableSortLabel
+                    active={orderBy === 'title'}
+                    direction={orderBy === 'title' ? order : 'asc'}
+                    onClick={() => handleSortRequest('title')}
+                  >
+                    Type
+                  </TableSortLabel>
                 </TableCell>
                 <TableCell>
-                  <TableSortLabel>Creation Date</TableSortLabel>
+                  <TableSortLabel
+                    active={orderBy === 'title'}
+                    direction={orderBy === 'title' ? order : 'asc'}
+                    onClick={() => handleSortRequest('title')}
+                  >
+                    Creation Date
+                  </TableSortLabel>
                 </TableCell>
               </TableRow>
             </TableHead>
