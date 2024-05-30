@@ -19,6 +19,8 @@ import useStyles from './styles';
 const OutputHistoryTable = ({ data }) => {
   const classes = useStyles();
   const [searchQuery, setSearchQuery] = useState('');
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('title');
 
   // Handle search input change
   const handleSearchChange = (event) => {
