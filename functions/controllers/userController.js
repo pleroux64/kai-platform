@@ -162,12 +162,7 @@ exports.delHist = https.onCall(async (data) => {
   return { status: 'success' };
 });
 
-const admin = require('firebase-admin');
-const { https } = require('firebase-functions');
-const { HttpsError } = require('firebase-functions/v1/auth');
-
 // Initialize Firebase Admin SDK
-admin.initializeApp();
 
 // #region createDocument
 /**
@@ -182,12 +177,22 @@ exports.createDocument = https.onCall(async (data, context) => {
   const { collectionName, documentData } = data;
 
   if (!collectionName || !documentData) {
-    throw new HttpsError('failed-precondition', 'Please provide all required fields');
+    throw new HttpsError(
+      'failed-precondition',
+      'Please provide all required fields'
+    );
   }
 
   try {
-    const docRef = await admin.firestore().collection(collectionName).add(documentData);
-    return { status: 'success', message: 'Document created successfully', id: docRef.id };
+    const docRef = await admin
+      .firestore()
+      .collection(collectionName)
+      .add(documentData);
+    return {
+      status: 'success',
+      message: 'Document created successfully',
+      id: docRef.id,
+    };
   } catch (error) {
     throw new HttpsError('internal', 'Failed to create document', error);
   }
@@ -207,7 +212,10 @@ exports.readDocument = https.onCall(async (data, context) => {
   const { collectionName, documentId } = data;
 
   if (!collectionName || !documentId) {
-    throw new HttpsError('failed-precondition', 'Please provide all required fields');
+    throw new HttpsError(
+      'failed-precondition',
+      'Please provide all required fields'
+    );
   }
 
   try {
@@ -238,7 +246,10 @@ exports.updateDocument = https.onCall(async (data, context) => {
   const { collectionName, documentId, updateData } = data;
 
   if (!collectionName || !documentId || !updateData) {
-    throw new HttpsError('failed-precondition', 'Please provide all required fields');
+    throw new HttpsError(
+      'failed-precondition',
+      'Please provide all required fields'
+    );
   }
 
   try {
@@ -270,7 +281,10 @@ exports.deleteDocument = https.onCall(async (data, context) => {
   const { collectionName, documentId } = data;
 
   if (!collectionName || !documentId) {
-    throw new HttpsError('failed-precondition', 'Please provide all required fields');
+    throw new HttpsError(
+      'failed-precondition',
+      'Please provide all required fields'
+    );
   }
 
   try {
@@ -287,4 +301,5 @@ exports.deleteDocument = https.onCall(async (data, context) => {
     throw new HttpsError('internal', 'Failed to delete document', error);
   }
 });
+
 // #endregion
