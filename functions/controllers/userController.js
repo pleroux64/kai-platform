@@ -2,7 +2,7 @@ const admin = require('firebase-admin');
 const { https } = require('firebase-functions');
 const { HttpsError } = require('firebase-functions/v1/auth');
 const { stringToHash } = require('../utils/hashUtil');
-const { BOT_TYPE } = require('../constants');
+const sortUtil = require('../utils/sortUtil');
 
 // #region signUp a user
 /**
@@ -30,6 +30,14 @@ exports.signUpUser = https.onCall(async (data, context) => {
     fullName,
   };
   await userRef.set(userDoc);
+  const defaultHist = {
+    id: '-1',
+    content: '',
+    creationDate: 0,
+    title: '',
+    type: '',
+  };
+  await userRef.collection('outputs').doc('-1').set(defaultHist);
   return { status: 'success', message: 'User document created successfully' };
 });
 // #endregion
@@ -59,6 +67,7 @@ const gethistPOST = https.onCall(async (data) => {
   return { status: 'success', data: hists.docs.map((doc) => doc.data()) };
 });
 
+// #region GET request archive
 /**
  * get user's chat history from DB use GET request
  *
@@ -89,15 +98,16 @@ const gethistGET = https.onRequest(async (req, res) => {
     res.status(405).send('Method Not Allowed');
   }
 });
+// #endregion
 
-exports.getHist = gethistGET; // or histPOST if want use post to access
+exports.getHist = gethistGET;
 // #endregion
 
 // #region setHist
 /**
  * Creates a new user chat History document.
  *
- * @param {Object} data - The data object containing the user's unique identifier (uid), session identidier (sid), and list of messages (messages).
+ * @param {Object} data - The data object containing the user's unique identifier (uid).
  * @throws {HttpsError} If any of the required fields (email, fullName, uid) are missing in the data object.
  * @return {Object} - Return status 200/other.
  */
@@ -110,9 +120,6 @@ exports.setHist = https.onCall(async (data) => {
       'failed-precondition',
       'Please provide all required fields'
     );
-  }
-  if (type != BOT_TYPE.TOOL) {
-    throw new https.HttpsError('invalid-argument', 'type should be tool');
   }
   const id = stringToHash(title + creationDate.toString() + type).toString();
   const histsRef = await admin
@@ -140,6 +147,14 @@ exports.setHist = https.onCall(async (data) => {
 });
 // #endregion
 
+// #region delet a output histoy with uis and oid
+/**
+ * delete history output
+ *
+ * @param {Object} data - The data object containing the user's unique identifier (uid), and output history id(oid).
+ * @throws {HttpsError} If any of the required fields (email, fullName, uid) are missing in the data object.
+ * @return {Object} - Return status 200/other.
+ */
 exports.delHist = https.onCall(async (data) => {
   const { uid, oid } = data;
   if (!uid || !oid) {
@@ -161,8 +176,43 @@ exports.delHist = https.onCall(async (data) => {
   }
   return { status: 'success' };
 });
+// #endregion
 
-// Initialize Firebase Admin SDK
+// #region sort by creationDate, type, or title.
+exports.sortHist = https.onCall(async (data) => {
+  const { uid, sortKey } = data;
+  if (!uid || !sortKey) {
+    throw new https.HttpsError(
+      'failed-precondition',
+      'Please provide all required fields'
+    );
+  }
+  // if (['creationDate', 'type', 'title'].includes(sortKey)) {
+  //   throw new https.HttpsError('failed-precondition', 'type not allowed');
+  // }
+  let hists = await admin
+    .firestore()
+    .collection('users')
+    .doc(uid)
+    .collection('outputs')
+    .get();
+  hists = hists.docs.map((doc) => doc.data());
+  switch (sortKey) {
+    case 'creationDate':
+      hists.sort(sortUtil.crtDate);
+      break;
+    case 'type':
+      hists.sort(sortUtil.type);
+      break;
+    case 'title':
+      hists.sort(sortUtil.title);
+      break;
+    default:
+      break;
+  }
+  return { status: 'success', data: hists };
+});
+// #endregion
 
 // #region createDocument
 /**
