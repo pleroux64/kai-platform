@@ -225,6 +225,45 @@ exports.readDocument = https.onCall(async (data, context) => {
 });
 // #endregion
 
+// #region getDocumentTitle
+/**
+ * Retrieves a document from the specified Firestore collection by document ID.
+ *
+ * @param {Object} data - The data object containing the collection name and document ID.
+ * @throws {HttpsError} If the required fields are missing or the document does not exist.
+ * @return {Object} An object with a status and the document's title data.
+ */
+async function getDocumentTitle(collectionName, documentId) {
+  if (!collectionName || !documentId) {
+    throw new HttpsError('failed-precondition', 'Please provide all required fields');
+  }
+
+  const docRef = admin.firestore().collection(collectionName).doc(documentId);
+  const docSnapshot = await docRef.get();
+
+  if (!docSnapshot.exists) {
+    throw new HttpsError('not-found', 'Document not found');
+  }
+
+  const docTitle = docSnapshot.data();
+  if (!docTitle.title) {
+    throw new HttpsError('not-found', 'Title field not found in the document');
+  }
+
+  return { title: docTitle.title };
+}
+
+exports.getDocumentTitle = functions.https.onCall(async (data) => {
+  try {
+    const { collectionName, documentId } = data;
+    const titleData = await getDocumentTitle(collectionName, documentId);
+    return { status: 'success', data: titleData };
+  } catch (error) {
+    throw new HttpsError('internal', 'Failed to read document', error);
+  }
+});
+// #endregion
+
 // #region updateDocument
 /**
  * Updates an existing document in the specified Firestore collection by document ID.
