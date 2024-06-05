@@ -20,6 +20,7 @@
     "firebase-tools": "^9.10.0"
   },
   "dependencies": {
+    "@google-cloud/tasks": "^5.4.0",
     "eslint": "^9.3.0",
     "husky": "^9.0.11"
   }
