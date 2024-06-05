@@ -21,7 +21,7 @@ const functions = getFunctions(app);
 // Connect to Firebase Emulators if running locally
 if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
   connectAuthEmulator(auth, 'http://localhost:9099');
-  connectFirestoreEmulator(firestore, 'localhost', 8080);
+  connectFirestoreEmulator(firestore, 'localhost', 8089);
   connectFunctionsEmulator(functions, 'localhost', 5001);
 }
 
