@@ -1,1 +1,1 @@
-export { default } from './PrimarySelectorInput';
+export { default } from './PrimarySelectorInput'

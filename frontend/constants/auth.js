@@ -1,7 +1,7 @@
 const AUTH_STEPS = {
   EMAIL: 'email',
   PASSWORD: 'password',
-};
+}
 
 // Auth Error Codes - https://firebase.google.com/docs/reference/js/v8/firebase.auth.Error#code
 const AUTH_ERR_CODES = {
@@ -14,7 +14,7 @@ const AUTH_ERR_CODES = {
   WRONG_PASSWORD: 'auth/wrong-password',
   USER_NOT_FOUND: 'auth/user-not-found',
   INVALID_LOGIN_CREDENTIALS: 'auth/invalid-login-credentials',
-};
+}
 
 const AUTH_ERROR_MESSAGES = {
   [AUTH_ERR_CODES.TOO_MANY_ATTEMPTS_TRY_LATER]:
@@ -28,7 +28,7 @@ const AUTH_ERROR_MESSAGES = {
   [AUTH_ERR_CODES.USER_DISABLED]: 'The user is currently disabled',
   // For Sign-up
   [AUTH_ERR_CODES.EMAIL_ALREADY_IN_USE]: 'This email address is already in use',
-};
+}
 
 const VALIDATION_STATES = {
   DEFAULT: 'text',
@@ -36,22 +36,22 @@ const VALIDATION_STATES = {
   ERROR: 'error',
   DISABLED: 'disabled',
   WARNING: 'warning',
-};
+}
 
 const FORGOT_PASSWORD_STEPS = {
   EMAIL: 'email',
   CHECK_INBOX: 'check-inbox',
-};
+}
 
 const AUTH_MODES = {
   PASSWORD_RESET: 'resetPassword',
   VERIFY_EMAIL: 'verifyEmail',
-};
+}
 
 const APP_ENV = {
   SANDBOX: 'sandbox',
   PRODUCTION: 'production',
-};
+}
 
 export {
   AUTH_STEPS,
@@ -61,4 +61,4 @@ export {
   VALIDATION_STATES,
   AUTH_MODES,
   APP_ENV,
-};
+}

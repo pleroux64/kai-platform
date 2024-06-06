@@ -1,10 +1,10 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useState } from 'react'
 
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { IconButton, InputAdornment } from '@mui/material';
-import { TextFieldElement } from 'react-hook-form-mui';
+import { Visibility, VisibilityOff } from '@mui/icons-material'
+import { IconButton, InputAdornment } from '@mui/material'
+import { TextFieldElement } from 'react-hook-form-mui'
 
-import styles from './styles';
+import styles from './styles'
 
 /**
  * Renders a custom input text field component with configurable props.
@@ -24,22 +24,22 @@ const AuthTextField = forwardRef((props, ref) => {
     control,
     state,
     ...otherProps
-  } = props;
+  } = props
 
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false)
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event) => event.preventDefault();
+  const handleClickShowPassword = () => setShowPassword((show) => !show)
+  const handleMouseDownPassword = (event) => event.preventDefault()
 
   const setFieldType = () => {
-    if (!isPasswordField) return 'text';
-    return showPassword ? 'text' : 'password';
-  };
+    if (!isPasswordField) return 'text'
+    return showPassword ? 'text' : 'password'
+  }
 
   const renderPrimaryIcon = () => {
-    if (!icon) return null;
-    return <InputAdornment {...styles.inputPrimaryIcon}>{icon}</InputAdornment>;
-  };
+    if (!icon) return null
+    return <InputAdornment {...styles.inputPrimaryIcon}>{icon}</InputAdornment>
+  }
 
   const renderVisibilityIcon = () => {
     return (
@@ -53,8 +53,8 @@ const AuthTextField = forwardRef((props, ref) => {
           {showPassword ? <Visibility /> : <VisibilityOff />}
         </IconButton>
       </InputAdornment>
-    );
-  };
+    )
+  }
 
   const TextFieldElementConfig = {
     id,
@@ -75,7 +75,7 @@ const AuthTextField = forwardRef((props, ref) => {
     autoComplete: 'off',
     placeholder: placeholderText,
     FormHelperTextProps: { error },
-  };
+  }
 
   return (
     <TextFieldElement
@@ -83,7 +83,7 @@ const AuthTextField = forwardRef((props, ref) => {
       {...TextFieldElementConfig}
       {...otherProps}
     />
-  );
-});
+  )
+})
 
-export default AuthTextField;
+export default AuthTextField

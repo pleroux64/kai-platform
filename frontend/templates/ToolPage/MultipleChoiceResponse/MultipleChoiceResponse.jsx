@@ -1,28 +1,28 @@
-import { Fade, Grid, Typography } from '@mui/material';
+import { Fade, Grid, Typography } from '@mui/material'
 
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 
-import styles from './styles';
+import styles from './styles'
 
 const MultipleChoiceResponse = () => {
-  const { response } = useSelector((state) => state.tools);
+  const { response } = useSelector((state) => state.tools)
 
-  const hasTitle = false;
+  const hasTitle = false
 
   const renderTitle = () => {
     return (
       <Grid {...styles.titleGridProps}>
         <Typography {...styles.titleProps}>No Title</Typography>
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderQuestion = (question, questionNo) => {
-    const { choices, question: questionTitle } = question;
+    const { choices, question: questionTitle } = question
 
     const questionChoices = Array.isArray(choices)
       ? choices
-      : Object.values(choices || {});
+      : Object.values(choices || {})
 
     return (
       <Grid key={`question-${questionNo}`} {...styles.questionGridProps}>
@@ -40,16 +40,16 @@ const MultipleChoiceResponse = () => {
           ))}
         </Grid>
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderQuestions = () => {
     return (
       <Grid {...styles.questionsGridProps}>
         {response?.map((question, i) => renderQuestion(question, i + 1))}
       </Grid>
-    );
-  };
+    )
+  }
 
   return (
     <Fade in>
@@ -58,6 +58,6 @@ const MultipleChoiceResponse = () => {
         {renderQuestions()}
       </Grid>
     </Fade>
-  );
-};
-export default MultipleChoiceResponse;
+  )
+}
+export default MultipleChoiceResponse

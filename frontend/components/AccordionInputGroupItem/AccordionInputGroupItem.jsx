@@ -1,4 +1,4 @@
-import { Edit } from '@mui/icons-material';
+import { Edit } from '@mui/icons-material'
 import {
   Accordion,
   AccordionDetails,
@@ -7,11 +7,11 @@ import {
   Grid,
   Stack,
   useTheme,
-} from '@mui/material';
+} from '@mui/material'
 
-import GradientOutlinedButton from '../GradientOutlinedButton';
+import GradientOutlinedButton from '../GradientOutlinedButton'
 
-import styles from './styles';
+import styles from './styles'
 
 /**
  * Creates an AccordionInputGroupItem wrapper component with a title, children, and additional accordion details props.
@@ -36,9 +36,9 @@ const AccordionInputGroupItem = (props) => {
     open,
     toggleOpen,
     extraAccordionDetailsProps,
-  } = props;
+  } = props
 
-  const theme = useTheme();
+  const theme = useTheme()
 
   const renderEditButton = () => {
     return (
@@ -52,8 +52,8 @@ const AccordionInputGroupItem = (props) => {
         text={`${open ? 'Hide' : 'Edit'} Prompt`}
         {...styles.outlinedButtonProps}
       />
-    );
-  };
+    )
+  }
 
   const renderSummary = () => {
     return (
@@ -74,8 +74,8 @@ const AccordionInputGroupItem = (props) => {
           </Stack>
         </Grid>
       </AccordionSummary>
-    );
-  };
+    )
+  }
 
   return (
     <Accordion expanded={open} {...styles.accordianProps}>
@@ -88,7 +88,7 @@ const AccordionInputGroupItem = (props) => {
         </AccordionDetails>
       </Fade>
     </Accordion>
-  );
-};
+  )
+}
 
-export default AccordionInputGroupItem;
+export default AccordionInputGroupItem

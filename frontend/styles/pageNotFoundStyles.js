@@ -190,6 +190,6 @@ const pageNotFoundStyles = {
     right: '18%',
     width: 42,
   },
-};
+}
 
-export default pageNotFoundStyles;
+export default pageNotFoundStyles

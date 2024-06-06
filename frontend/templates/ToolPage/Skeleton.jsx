@@ -1,9 +1,9 @@
-import { Grid, Skeleton, useTheme } from '@mui/material';
+import { Grid, Skeleton, useTheme } from '@mui/material'
 
-import styles from './styles';
+import styles from './styles'
 
 const ToolPageSkeleton = () => {
-  const theme = useTheme();
+  const theme = useTheme()
 
   const renderBackButton = () => {
     return (
@@ -19,8 +19,8 @@ const ToolPageSkeleton = () => {
           }}
         />
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderForm = () => {
     return (
@@ -36,15 +36,15 @@ const ToolPageSkeleton = () => {
           }}
         />
       </Grid>
-    );
-  };
+    )
+  }
 
   return (
     <Grid {...styles.mainGridProps}>
       {renderBackButton()}
       {renderForm()}
     </Grid>
-  );
-};
+  )
+}
 
-export default ToolPageSkeleton;
+export default ToolPageSkeleton

@@ -1,11 +1,11 @@
-import { Button, Fade, Grid } from '@mui/material';
+import { Button, Fade, Grid } from '@mui/material'
 
-import styles from './styles';
+import styles from './styles'
 
 const Options = (props) => {
-  const { options, onQuickReply, show } = props;
+  const { options, onQuickReply, show } = props
 
-  if (!show) return null;
+  if (!show) return null
 
   return (
     <Fade in direction="up">
@@ -25,7 +25,7 @@ const Options = (props) => {
         )}
       </Grid>
     </Fade>
-  );
-};
+  )
+}
 
-export default Options;
+export default Options

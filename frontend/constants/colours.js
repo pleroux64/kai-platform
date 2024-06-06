@@ -5,6 +5,6 @@ const AVATAR_COLOURS = {
   BLUE: '#5c51ed',
   TEAL: '#94f1cb',
   PINK: '#d83963',
-};
+}
 
-export default AVATAR_COLOURS;
+export default AVATAR_COLOURS

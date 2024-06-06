@@ -1,15 +1,15 @@
-import { Fade, Grid, Typography } from '@mui/material';
-import emoji from 'remark-emoji';
-import remarkGfm from 'remark-gfm';
+import { Fade, Grid, Typography } from '@mui/material'
+import emoji from 'remark-emoji'
+import remarkGfm from 'remark-gfm'
 
-import MemoizedReactMarkdown from '@/components/MemoizedMarkdown';
+import MemoizedReactMarkdown from '@/components/MemoizedMarkdown'
 
-import CodeComponent from '../CodeComponent';
+import CodeComponent from '../CodeComponent'
 
-import styles from './styles';
+import styles from './styles'
 
 const TextMessage = (props) => {
-  const { isMyMessage, message } = props;
+  const { isMyMessage, message } = props
 
   return (
     <Fade in direction="up">
@@ -27,7 +27,7 @@ const TextMessage = (props) => {
         </Grid>
       </Grid>
     </Fade>
-  );
-};
+  )
+}
 
-export default TextMessage;
+export default TextMessage

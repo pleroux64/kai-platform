@@ -49,6 +49,6 @@ const styles = {
     fontFamily: 'Satoshi Regular',
     fontSize: { laptop: '18px', desktop: '20px' },
   },
-};
+}
 
-export default styles;
+export default styles

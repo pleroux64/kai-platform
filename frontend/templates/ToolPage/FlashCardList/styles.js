@@ -50,6 +50,6 @@ const styles = {
     fontSize: { laptop: '18px', desktop: '20px' },
     textAlign: 'center',
   },
-};
+}
 
-export default styles;
+export default styles

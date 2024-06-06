@@ -48,6 +48,6 @@ const styles = {
     variant: 'body1',
     color: 'white',
   },
-};
+}
 
-export default styles;
+export default styles

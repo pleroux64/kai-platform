@@ -9,6 +9,6 @@ const ROUTES = {
   REDIRECT: '/redirect',
   CHAT: '/chat',
   HISTORY: '/history',
-};
+}
 
-export default ROUTES;
+export default ROUTES

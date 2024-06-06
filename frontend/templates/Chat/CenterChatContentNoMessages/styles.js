@@ -79,6 +79,6 @@ const styles = {
     mobileSmall: 6,
     maxWidth: '600px',
   },
-};
+}
 
-export default styles;
+export default styles

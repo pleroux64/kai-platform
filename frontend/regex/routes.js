@@ -1,4 +1,4 @@
-const homeRegex = /\/(\w+)?(\/workspace)?/;
-const chatRegex = /\/chat/;
+const homeRegex = /\/(\w+)?(\/workspace)?/
+const chatRegex = /\/chat/
 
-export { homeRegex, chatRegex };
+export { homeRegex, chatRegex }

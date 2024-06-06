@@ -1,34 +1,34 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
-import { ArrowBack } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material'
+import { IconButton } from '@mui/material'
 
-import { FORGOT_PASSWORD_STEPS } from '@/constants/auth';
+import { FORGOT_PASSWORD_STEPS } from '@/constants/auth'
 
-import CheckInbox from './CheckInbox';
-import EnterEmailView from './EnterEmailView';
+import CheckInbox from './CheckInbox'
+import EnterEmailView from './EnterEmailView'
 
-import sharedStyles from '@/styles/shared/sharedStyles';
+import sharedStyles from '@/styles/shared/sharedStyles'
 
 const FORGOT_PASSWORD_PAGE = {
   [FORGOT_PASSWORD_STEPS.EMAIL]: EnterEmailView,
   [FORGOT_PASSWORD_STEPS.CHECK_INBOX]: CheckInbox,
-};
+}
 
 const ForgotPasswordPage = (props) => {
-  const { handleSwitch } = props;
+  const { handleSwitch } = props
 
-  const [step, setStep] = useState(FORGOT_PASSWORD_STEPS.EMAIL);
-  const [enteredEmail, setEnteredEmail] = useState(null);
+  const [step, setStep] = useState(FORGOT_PASSWORD_STEPS.EMAIL)
+  const [enteredEmail, setEnteredEmail] = useState(null)
 
   const handleSwitchScreen = () => {
     if (step === FORGOT_PASSWORD_STEPS.EMAIL) {
-      handleSwitch();
+      handleSwitch()
     }
     if (step === FORGOT_PASSWORD_STEPS.CHECK_INBOX) {
-      setStep(FORGOT_PASSWORD_STEPS.EMAIL);
+      setStep(FORGOT_PASSWORD_STEPS.EMAIL)
     }
-  };
+  }
 
   const renderGoBack = () => {
     return (
@@ -39,10 +39,10 @@ const ForgotPasswordPage = (props) => {
       >
         <ArrowBack />
       </IconButton>
-    );
-  };
+    )
+  }
 
-  const SwitchHandler = FORGOT_PASSWORD_PAGE[step];
+  const SwitchHandler = FORGOT_PASSWORD_PAGE[step]
 
   return (
     <>
@@ -55,7 +55,7 @@ const ForgotPasswordPage = (props) => {
         handleSwitch={handleSwitchScreen}
       />
     </>
-  );
-};
+  )
+}
 
-export default ForgotPasswordPage;
+export default ForgotPasswordPage

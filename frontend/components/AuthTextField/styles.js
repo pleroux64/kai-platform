@@ -54,6 +54,6 @@ const styles = {
       bgcolor: (theme) => theme.palette.Greyscale[100],
     },
   },
-};
+}
 
-export default styles;
+export default styles

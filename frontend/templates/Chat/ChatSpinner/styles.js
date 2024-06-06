@@ -33,6 +33,6 @@ const styles = {
       border: '2px solid #B791FF',
     },
   }),
-};
+}
 
-export default styles;
+export default styles

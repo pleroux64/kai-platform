@@ -1,1 +1,1 @@
-export { default } from './FlashCardList';
+export { default } from './FlashCardList'

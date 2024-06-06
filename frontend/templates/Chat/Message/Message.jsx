@@ -1,17 +1,17 @@
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react'
 
-import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux'
 
-import { MESSAGE_ROLE, MESSAGE_TYPES } from '@/constants/bots';
+import { MESSAGE_ROLE, MESSAGE_TYPES } from '@/constants/bots'
 
-import ImageMessage from '../ImageMessage';
-import Options from '../Options';
-import TextMessage from '../TextMessage';
-import VideoMessage from '../VideoMessage';
+import ImageMessage from '../ImageMessage'
+import Options from '../Options'
+import TextMessage from '../TextMessage'
+import VideoMessage from '../VideoMessage'
 
-import { setStreaming, setStreamingDone } from '@/redux/slices/chatSlice';
+import { setStreaming, setStreamingDone } from '@/redux/slices/chatSlice'
 
-const { OPTIONS, VIDEO, TEXT, IMAGE, GIF, QUICK_REPLY } = MESSAGE_TYPES;
+const { OPTIONS, VIDEO, TEXT, IMAGE, GIF, QUICK_REPLY } = MESSAGE_TYPES
 
 /**
  * Renders a message component based on the provided props.
@@ -29,51 +29,51 @@ const Message = forwardRef((props, ref) => {
     onQuickReply,
     fullyScrolled,
     streaming,
-  } = props;
+  } = props
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const isMyMessage = role === MESSAGE_ROLE.HUMAN;
-  const isLastMessage = messageNo === messagesLength;
-  const displayCTAs = !streaming && type === OPTIONS && isLastMessage;
+  const isMyMessage = role === MESSAGE_ROLE.HUMAN
+  const isLastMessage = messageNo === messagesLength
+  const displayCTAs = !streaming && type === OPTIONS && isLastMessage
 
   // Check message type
-  const isStreamable = [TEXT, OPTIONS, QUICK_REPLY].includes(type);
-  const isVideo = type === VIDEO;
-  const isImage = [IMAGE, GIF].includes(type);
+  const isStreamable = [TEXT, OPTIONS, QUICK_REPLY].includes(type)
+  const isVideo = type === VIDEO
+  const isImage = [IMAGE, GIF].includes(type)
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState('')
   const [messageMounted, setMessageMounted] = useState(
     isMyMessage || !isLastMessage
-  );
+  )
 
   const stopStreaming =
-    messageMounted || !isLastMessage || !isStreamable || !streaming;
+    messageMounted || !isLastMessage || !isStreamable || !streaming
 
   useEffect(() => {
-    if (stopStreaming) return;
+    if (stopStreaming) return
 
-    const characters = payload?.text.split('');
+    const characters = payload?.text.split('')
 
     characters.forEach((chunk, index) => {
       setTimeout(() => {
-        setMessage((prevChunks) => prevChunks + chunk);
-      }, 20 * index);
-    });
+        setMessage((prevChunks) => prevChunks + chunk)
+      }, 20 * index)
+    })
 
     setTimeout(() => {
-      dispatch(setStreamingDone(true));
-      setMessageMounted(true);
-      dispatch(setStreaming(false));
-    }, 20 * characters.length);
-  }, []);
+      dispatch(setStreamingDone(true))
+      setMessageMounted(true)
+      dispatch(setStreaming(false))
+    }, 20 * characters.length)
+  }, [])
 
   useEffect(() => {
     if (fullyScrolled)
       ref.current?.scrollTo(0, ref.current?.scrollHeight, {
         behavior: 'smooth',
-      });
-  }, [message]);
+      })
+  }, [message])
 
   const renderStreamableMessage = () => {
     return (
@@ -88,8 +88,8 @@ const Message = forwardRef((props, ref) => {
           show={displayCTAs}
         />
       </>
-    );
-  };
+    )
+  }
 
   return (
     <>
@@ -97,7 +97,7 @@ const Message = forwardRef((props, ref) => {
       {isVideo && <VideoMessage link={payload?.text} />}
       {isImage && <ImageMessage link={payload?.text} />}
     </>
-  );
-});
+  )
+})
 
-export default Message;
+export default Message

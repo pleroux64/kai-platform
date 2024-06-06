@@ -1,7 +1,7 @@
-import { httpsCallable } from 'firebase/functions';
+import { httpsCallable } from 'firebase/functions'
 
-import { setError, setStreaming, setTyping } from '@/redux/slices/chatSlice';
-import { functions } from '@/redux/store';
+import { setError, setStreaming, setTyping } from '@/redux/slices/chatSlice'
+import { functions } from '@/redux/store'
 
 /**
  * Creates a chat session.
@@ -12,19 +12,19 @@ import { functions } from '@/redux/store';
  */
 const createChatSession = async (payload, dispatch) => {
   try {
-    const createSession = httpsCallable(functions, 'createChatSession');
-    const response = await createSession(payload);
+    const createSession = httpsCallable(functions, 'createChatSession')
+    const response = await createSession(payload)
 
-    return response.data;
+    return response.data
   } catch (err) {
-    dispatch(setError('Error! Couldn\u0027t send message'));
-    dispatch(setStreaming(false));
-    dispatch(setTyping(false));
+    dispatch(setError('Error! Couldn\u0027t send message'))
+    dispatch(setStreaming(false))
+    dispatch(setTyping(false))
     setTimeout(() => {
-      dispatch(setError(null));
-    }, 3000);
-    throw new Error('Error could not send message');
+      dispatch(setError(null))
+    }, 3000)
+    throw new Error('Error could not send message')
   }
-};
+}
 
-export default createChatSession;
+export default createChatSession

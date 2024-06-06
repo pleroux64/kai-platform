@@ -1,1 +1,1 @@
-export { default } from './MemoizedMarkdown';
+export { default } from './MemoizedMarkdown'

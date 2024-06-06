@@ -1,11 +1,11 @@
-import { forwardRef, useRef, useState } from 'react';
+import { forwardRef, useRef, useState } from 'react'
 
-import { FileUploadOutlined } from '@mui/icons-material';
-import { Chip, Grid, IconButton, Typography } from '@mui/material';
+import { FileUploadOutlined } from '@mui/icons-material'
+import { Chip, Grid, IconButton, Typography } from '@mui/material'
 
-import { MultiSelectElement } from 'react-hook-form-mui';
+import { MultiSelectElement } from 'react-hook-form-mui'
 
-import styles from './styles';
+import styles from './styles'
 
 /**
  * Generates a reusable input text field component with a required title and an optional description.
@@ -42,52 +42,50 @@ const PrimaryFileUpload = forwardRef((props, ref) => {
     preserveOrder,
     displayEmpty,
     ...otherProps
-  } = props;
+  } = props
 
-  const fileInputRef = useRef();
+  const fileInputRef = useRef()
 
-  const defaultValues = getValues(name) || [];
+  const defaultValues = getValues(name) || []
 
-  const [files, setFiles] = useState(defaultValues);
+  const [files, setFiles] = useState(defaultValues)
 
   const handleCarouselFiles = (e) => {
-    const selectedFiles = e.target.files;
+    const selectedFiles = e.target.files
     if (multiple) {
       setFiles((prevFiles) => {
-        const arrayFiles = [...prevFiles, ...selectedFiles];
-        setValue(name, Array.from(arrayFiles));
-        return arrayFiles;
-      });
+        const arrayFiles = [...prevFiles, ...selectedFiles]
+        setValue(name, Array.from(arrayFiles))
+        return arrayFiles
+      })
     } else {
-      setFiles(selectedFiles);
-      setValue(name, Array.from(selectedFiles));
+      setFiles(selectedFiles)
+      setValue(name, Array.from(selectedFiles))
     }
-  };
+  }
 
   const handleOnDelete = (fileIndex) => {
-    const newFiles = files?.filter((file, index) => index !== fileIndex);
-    setFiles(newFiles);
-    setValue(name, files);
-  };
+    const newFiles = files?.filter((file, index) => index !== fileIndex)
+    setFiles(newFiles)
+    setValue(name, files)
+  }
 
   const renderLabel = () => {
     return (
       <Grid id={`${id}-label`} {...styles.labelGridProps}>
         <Typography {...styles.labelProps(error)}>{label}</Typography>
       </Grid>
-    );
-  };
+    )
+  }
 
   const handleCarouselInput = () => {
-    fileInputRef.current.click();
-  };
+    fileInputRef.current.click()
+  }
 
   const renderPlaceholder = () => {
-    const arrayFiles = Array.from(files);
+    const arrayFiles = Array.from(files)
     if (arrayFiles?.length === 0)
-      return (
-        <Typography {...styles.placeholderProps}>{placeholder}</Typography>
-      );
+      return <Typography {...styles.placeholderProps}>{placeholder}</Typography>
 
     return (
       <Grid {...styles.chipGroupProps}>
@@ -99,11 +97,11 @@ const PrimaryFileUpload = forwardRef((props, ref) => {
               onDelete={() => handleOnDelete(i)}
               {...styles.chipProps}
             />
-          );
+          )
         })}
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderEndIcon = () => {
     return (
@@ -117,8 +115,8 @@ const PrimaryFileUpload = forwardRef((props, ref) => {
           sx={{ color: (theme) => theme.palette.Common.Black['100p'] }}
         />
       </IconButton>
-    );
-  };
+    )
+  }
 
   const SelectMultiMenuConfig = {
     id,
@@ -129,7 +127,7 @@ const PrimaryFileUpload = forwardRef((props, ref) => {
     showChips,
     preserveOrder,
     ...styles.selectInputProps(color, bgColor),
-  };
+  }
 
   return (
     <>
@@ -157,7 +155,7 @@ const PrimaryFileUpload = forwardRef((props, ref) => {
         multiple={multiple}
       />
     </>
-  );
-});
+  )
+})
 
-export default PrimaryFileUpload;
+export default PrimaryFileUpload

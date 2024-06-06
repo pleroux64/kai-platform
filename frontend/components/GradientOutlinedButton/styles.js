@@ -16,16 +16,16 @@ const styles = {
     ...extraProps,
     sx: (theme) => ({
       background: () => {
-        if (disabled || loading) return theme.palette.Greyscale[650];
-        if (inverted) return 'transparent';
-        return theme.palette.Background.gradient[color];
+        if (disabled || loading) return theme.palette.Greyscale[650]
+        if (inverted) return 'transparent'
+        return theme.palette.Background.gradient[color]
       },
       ...(!disableHover && {
         '&:hover': {
           ...(inverted && {
             background: () => {
-              if (disabled || loading) return theme.palette.Greyscale[650];
-              return theme.palette.Background.gradient[color];
+              if (disabled || loading) return theme.palette.Greyscale[650]
+              return theme.palette.Background.gradient[color]
             },
           }),
         },
@@ -71,9 +71,9 @@ const styles = {
             active || disabled || loading ? 'white' : 'transparent',
         }),
         color: () => {
-          if (disabled || loading) return theme.palette.Greyscale[400];
-          if (inverted) return textColor || 'black';
-          return onHoverTextColor;
+          if (disabled || loading) return theme.palette.Greyscale[400]
+          if (inverted) return textColor || 'black'
+          return onHoverTextColor
         },
         height: '100%',
         width: 'auto',
@@ -119,6 +119,6 @@ const styles = {
       },
     }),
   }),
-};
+}
 
-export default styles;
+export default styles

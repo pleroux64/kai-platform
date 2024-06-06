@@ -1,8 +1,8 @@
-import { forwardRef } from 'react';
+import { forwardRef } from 'react'
 
-import { TextFieldElement } from 'react-hook-form-mui';
+import { TextFieldElement } from 'react-hook-form-mui'
 
-import styles from './styles';
+import styles from './styles'
 
 /**
  * Generates a reusable input text field component with a required title and an optional description.
@@ -33,7 +33,7 @@ const PrimaryTextFieldInput = forwardRef((props, ref) => {
     extraInputProps,
     extraInputLabelProps,
     ...otherProps
-  } = props;
+  } = props
 
   const TextFieldElementConfig = {
     id,
@@ -45,7 +45,7 @@ const PrimaryTextFieldInput = forwardRef((props, ref) => {
     FormHelperTextProps: styles.helperTextProps(isDescription, error),
     autoComplete: 'off',
     placeholder,
-  };
+  }
 
   return (
     <TextFieldElement
@@ -53,7 +53,7 @@ const PrimaryTextFieldInput = forwardRef((props, ref) => {
       {...TextFieldElementConfig}
       {...otherProps}
     />
-  );
-});
+  )
+})
 
-export default PrimaryTextFieldInput;
+export default PrimaryTextFieldInput

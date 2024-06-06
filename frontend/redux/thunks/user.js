@@ -1,5 +1,5 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { collection, getDocs, query, where } from 'firebase/firestore'
 
 const fetchUserData = createAsyncThunk(
   'userData/fetch',
@@ -9,19 +9,19 @@ const fetchUserData = createAsyncThunk(
       const userQuery = query(
         collection(firestore, 'users'),
         where('id', '==', id)
-      );
+      )
 
-      const userDocSnapshot = await getDocs(userQuery);
+      const userDocSnapshot = await getDocs(userQuery)
 
-      if (userDocSnapshot.empty) return null;
+      if (userDocSnapshot.empty) return null
 
-      const user = userDocSnapshot.docs[0].data();
+      const user = userDocSnapshot.docs[0].data()
 
-      return user;
+      return user
     } catch (error) {
-      throw new Error(error);
+      throw new Error(error)
     }
   }
-);
+)
 
-export default fetchUserData;
+export default fetchUserData

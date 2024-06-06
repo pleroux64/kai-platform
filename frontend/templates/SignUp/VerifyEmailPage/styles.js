@@ -91,6 +91,6 @@ const styles = {
       px: 4,
     },
   },
-};
+}
 
-export default styles;
+export default styles

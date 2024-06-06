@@ -1,4 +1,4 @@
-import { getRandomBackgroundColor } from '@/utils/MiscellaneousUtils';
+import { getRandomBackgroundColor } from '@/utils/MiscellaneousUtils'
 
 const styles = {
   mainGridProps: {
@@ -79,6 +79,6 @@ const styles = {
     height: 48,
     borderRadius: '50%',
   },
-};
+}
 
-export default styles;
+export default styles

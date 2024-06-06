@@ -1,44 +1,44 @@
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 
-import { Grid, useTheme } from '@mui/material';
+import { Grid, useTheme } from '@mui/material'
 
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 
-import AccordionInputGroupItem from '@/components/AccordionInputGroupItem';
-import GradientOutlinedButton from '@/components/GradientOutlinedButton';
+import AccordionInputGroupItem from '@/components/AccordionInputGroupItem'
+import GradientOutlinedButton from '@/components/GradientOutlinedButton'
 
-import ArrowBack from '@/assets/svg/purple-arrow-back.svg';
+import ArrowBack from '@/assets/svg/purple-arrow-back.svg'
 
-import ROUTES from '@/constants/routes';
+import ROUTES from '@/constants/routes'
 
-import TOOLS_ID from '@/constants/tools';
+import TOOLS_ID from '@/constants/tools'
 
-import FlashCardList from './FlashCardList';
-import MultipleChoiceResponse from './MultipleChoiceResponse';
-import styles from './styles';
-import ToolForm from './ToolForm';
+import FlashCardList from './FlashCardList'
+import MultipleChoiceResponse from './MultipleChoiceResponse'
+import styles from './styles'
+import ToolForm from './ToolForm'
 
-import { resetCommunicator, setFormOpen } from '@/redux/slices/toolsSlice';
+import { resetCommunicator, setFormOpen } from '@/redux/slices/toolsSlice'
 
 const ToolPage = (props) => {
-  const { toolDoc } = props;
-  const theme = useTheme();
-  const router = useRouter();
-  const dispatch = useDispatch();
+  const { toolDoc } = props
+  const theme = useTheme()
+  const router = useRouter()
+  const dispatch = useDispatch()
 
-  const { response, formOpen } = useSelector((state) => state.tools);
+  const { response, formOpen } = useSelector((state) => state.tools)
 
-  const { id } = toolDoc;
+  const { id } = toolDoc
 
   useEffect(() => {
     return () => {
-      dispatch(resetCommunicator());
-    };
-  }, []);
+      dispatch(resetCommunicator())
+    }
+  }, [])
 
-  const handleRoute = () => router.push(ROUTES.HOME);
+  const handleRoute = () => router.push(ROUTES.HOME)
 
   const renderBackButton = () => {
     return (
@@ -54,8 +54,8 @@ const ToolPage = (props) => {
           {...styles.outlinedButtonProps}
         />
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderForm = () => {
     return (
@@ -71,19 +71,19 @@ const ToolPage = (props) => {
           <ToolForm inputs={toolDoc?.inputs} id={toolDoc?.id} />
         </AccordionInputGroupItem>
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderResponse = () => {
     switch (id) {
       case TOOLS_ID.GEMINI_DYNAMO:
-        return <FlashCardList />;
+        return <FlashCardList />
       case TOOLS_ID.GEMINI_QUIZIFY:
-        return <MultipleChoiceResponse />;
+        return <MultipleChoiceResponse />
       default:
-        return null;
+        return null
     }
-  };
+  }
 
   return (
     <Grid {...styles.mainGridProps}>
@@ -91,6 +91,6 @@ const ToolPage = (props) => {
       {renderForm()}
       {!formOpen && response && renderResponse()}
     </Grid>
-  );
-};
-export default ToolPage;
+  )
+}
+export default ToolPage

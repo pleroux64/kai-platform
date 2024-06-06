@@ -1,6 +1,6 @@
-import { Grid, Skeleton } from '@mui/material';
+import { Grid, Skeleton } from '@mui/material'
 
-import styles from './styles';
+import styles from './styles'
 
 /**
  * Returns a RewardCard component with an image and a chip displaying the amount of coins.
@@ -21,7 +21,7 @@ const ToolCardSkeleton = () => {
         }}
       />
     </Grid>
-  );
-};
+  )
+}
 
-export default ToolCardSkeleton;
+export default ToolCardSkeleton

@@ -104,7 +104,7 @@ const RadicalXMobileLogo = ({ width = '36', height = '36' }) => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}
 
-export default RadicalXMobileLogo;
+export default RadicalXMobileLogo

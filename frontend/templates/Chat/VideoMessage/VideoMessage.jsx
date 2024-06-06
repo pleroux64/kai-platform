@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
-import { Fade, Grid, Skeleton } from '@mui/material';
+import { Fade, Grid, Skeleton } from '@mui/material'
 
-import PlayIcon from '@/assets/svg/PlayIcon.svg';
+import PlayIcon from '@/assets/svg/PlayIcon.svg'
 
-import styles from './styles';
+import styles from './styles'
 
 const VideoMessage = (props) => {
-  const { link } = props;
+  const { link } = props
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true)
 
   const renderLoader = () => {
     return (
@@ -19,8 +19,8 @@ const VideoMessage = (props) => {
           <PlayIcon />
         </Grid>
       </>
-    );
-  };
+    )
+  }
 
   return (
     <Fade in direction="up">
@@ -45,7 +45,7 @@ const VideoMessage = (props) => {
         </Grid>
       </Grid>
     </Fade>
-  );
-};
+  )
+}
 
-export default VideoMessage;
+export default VideoMessage

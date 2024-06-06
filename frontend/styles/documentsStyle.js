@@ -22,6 +22,6 @@ const documentsStyle = {
     lineHeight: 1.5,
     color: 'white',
   },
-};
+}
 
-export default documentsStyle;
+export default documentsStyle

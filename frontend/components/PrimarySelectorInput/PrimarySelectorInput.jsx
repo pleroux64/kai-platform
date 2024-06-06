@@ -1,10 +1,10 @@
-import { forwardRef } from 'react';
+import { forwardRef } from 'react'
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Typography } from '@mui/material';
-import { SelectElement } from 'react-hook-form-mui';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { Typography } from '@mui/material'
+import { SelectElement } from 'react-hook-form-mui'
 
-import styles from './styles';
+import styles from './styles'
 
 /**
  * Generates a reusable selector component with a required title and an optional description.
@@ -38,16 +38,14 @@ const PrimarySelectorInput = forwardRef((props, ref) => {
     color,
     extraInputProps,
     ...otherProps
-  } = props;
+  } = props
 
   const renderPlaceholder = (selected) => {
     if (selected?.length === 0)
-      return (
-        <Typography {...styles.placeholderProps}>{placeholder}</Typography>
-      );
+      return <Typography {...styles.placeholderProps}>{placeholder}</Typography>
 
-    return <Typography {...styles.selectedTextProps}>{selected}</Typography>;
-  };
+    return <Typography {...styles.selectedTextProps}>{selected}</Typography>
+  }
 
   const SelectMenuConfig = {
     id,
@@ -67,9 +65,9 @@ const PrimarySelectorInput = forwardRef((props, ref) => {
       displayEmpty,
       extraInputProps
     ),
-  };
+  }
 
-  return <SelectElement {...SelectMenuConfig} {...otherProps} />;
-});
+  return <SelectElement {...SelectMenuConfig} {...otherProps} />
+})
 
-export default PrimarySelectorInput;
+export default PrimarySelectorInput

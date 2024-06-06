@@ -1,1 +1,1 @@
-export { default } from './VideoMessage';
+export { default } from './VideoMessage'

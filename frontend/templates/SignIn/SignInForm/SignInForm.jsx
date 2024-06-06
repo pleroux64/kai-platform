@@ -1,40 +1,40 @@
-import { useContext, useState } from 'react';
+import { useContext, useState } from 'react'
 
-import { Grid, Link, useTheme } from '@mui/material';
-import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { useRouter } from 'next/router';
+import { Grid, Link, useTheme } from '@mui/material'
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { useRouter } from 'next/router'
 
-import { FormContainer } from 'react-hook-form-mui';
-import { useDispatch } from 'react-redux';
+import { FormContainer } from 'react-hook-form-mui'
+import { useDispatch } from 'react-redux'
 
-import AuthTextField from '@/components/AuthTextField';
-import GradientOutlinedButton from '@/components/GradientOutlinedButton';
+import AuthTextField from '@/components/AuthTextField'
+import GradientOutlinedButton from '@/components/GradientOutlinedButton'
 
-import { AUTH_ERROR_MESSAGES } from '@/constants/auth';
-import ALERT_COLORS from '@/constants/notification';
+import { AUTH_ERROR_MESSAGES } from '@/constants/auth'
+import ALERT_COLORS from '@/constants/notification'
 
-import ROUTES from '@/constants/routes';
+import ROUTES from '@/constants/routes'
 
-import styles from './styles';
+import styles from './styles'
 
-import sharedStyles from '@/styles/shared/sharedStyles';
+import sharedStyles from '@/styles/shared/sharedStyles'
 
-import { AuthContext } from '@/providers/GlobalProvider';
+import { AuthContext } from '@/providers/GlobalProvider'
 
-import { setLoading } from '@/redux/slices/authSlice';
-import { auth } from '@/redux/store';
+import { setLoading } from '@/redux/slices/authSlice'
+import { auth } from '@/redux/store'
 
-import AUTH_REGEX from '@/regex/auth';
+import AUTH_REGEX from '@/regex/auth'
 
 const DEFAULT_FORM_VALUES = {
   email: '',
   password: '',
-};
+}
 
 const DEFAULT_ERR_STATE = {
   email: false,
   password: false,
-};
+}
 
 /**
  * Renders a sign-in form with email and password inputs, and a submit button.
@@ -43,67 +43,67 @@ const DEFAULT_ERR_STATE = {
  * @return {JSX.Element} The sign-in form component.
  */
 const SignInForm = (props) => {
-  const { handleSwitch } = props;
+  const { handleSwitch } = props
 
-  const theme = useTheme();
+  const theme = useTheme()
 
-  const [signInLoading, setSignInLoading] = useState(false);
-  const [error, setError] = useState(DEFAULT_ERR_STATE);
-  const dispatch = useDispatch();
-  const router = useRouter();
+  const [signInLoading, setSignInLoading] = useState(false)
+  const [error, setError] = useState(DEFAULT_ERR_STATE)
+  const dispatch = useDispatch()
+  const router = useRouter()
 
-  const { handleOpenSnackBar } = useContext(AuthContext);
+  const { handleOpenSnackBar } = useContext(AuthContext)
 
   const handleSubmit = async (data) => {
     try {
-      const { email, password } = data;
+      const { email, password } = data
 
-      setError(DEFAULT_ERR_STATE);
+      setError(DEFAULT_ERR_STATE)
 
       // Check for required fields
       if (!email && !password) {
         setError({
           email: { message: 'Email address is required' },
           password: { message: 'Password is required' },
-        });
-        return;
+        })
+        return
       }
 
       // Check for valid email
       if (!AUTH_REGEX.email.regex.test(email)) {
-        setError({ email: { message: AUTH_REGEX.email.message } });
-        return;
+        setError({ email: { message: AUTH_REGEX.email.message } })
+        return
       }
 
       // Check if password is entered
       if (!password) {
-        setError({ password: { message: 'Password is required' } });
-        return;
+        setError({ password: { message: 'Password is required' } })
+        return
       }
 
       // Sign in user
-      setSignInLoading(true);
-      const userCred = await signInWithEmailAndPassword(auth, email, password);
+      setSignInLoading(true)
+      const userCred = await signInWithEmailAndPassword(auth, email, password)
 
       // If user is not verified, sign out user
       if (!userCred.user.emailVerified) {
-        signOut(auth);
+        signOut(auth)
         handleOpenSnackBar(
           ALERT_COLORS.INFO,
           'Please check your inbox to verify your email'
-        );
-        return;
+        )
+        return
       }
 
       // If user is verified, redirect to home
-      dispatch(setLoading(true));
-      router.push(ROUTES.HOME);
+      dispatch(setLoading(true))
+      router.push(ROUTES.HOME)
     } catch ({ code }) {
-      setError({ password: { message: AUTH_ERROR_MESSAGES[code] } });
+      setError({ password: { message: AUTH_ERROR_MESSAGES[code] } })
     } finally {
-      setSignInLoading(false);
+      setSignInLoading(false)
     }
-  };
+  }
 
   const renderEmailInput = () => {
     return (
@@ -115,8 +115,8 @@ const SignInForm = (props) => {
         helperText={error.email?.message}
         state="text"
       />
-    );
-  };
+    )
+  }
 
   const renderPaswordInput = () => {
     return (
@@ -138,8 +138,8 @@ const SignInForm = (props) => {
           </Link>
         </Grid>
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderSubmitButton = () => {
     return (
@@ -150,8 +150,8 @@ const SignInForm = (props) => {
         loading={signInLoading}
         {...styles.submitButtonProps}
       />
-    );
-  };
+    )
+  }
 
   return (
     <FormContainer
@@ -164,7 +164,7 @@ const SignInForm = (props) => {
         {renderSubmitButton()}
       </Grid>
     </FormContainer>
-  );
-};
+  )
+}
 
-export default SignInForm;
+export default SignInForm

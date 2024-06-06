@@ -1,6 +1,6 @@
-import { Alert, Snackbar } from '@mui/material';
+import { Alert, Snackbar } from '@mui/material'
 
-import ALERT_COLORS from '@/constants/notification';
+import ALERT_COLORS from '@/constants/notification'
 
 /**
  * Renders a Snackbar component with alert messages.
@@ -8,7 +8,7 @@ import ALERT_COLORS from '@/constants/notification';
  * @return {ReactElement} The rendered Snackbar component.
  */
 const SnackBar = (props) => {
-  const { open, handleClose, message, severity } = props;
+  const { open, handleClose, message, severity } = props
 
   return (
     <Snackbar
@@ -22,7 +22,7 @@ const SnackBar = (props) => {
         {message}
       </Alert>
     </Snackbar>
-  );
-};
+  )
+}
 
-export default SnackBar;
+export default SnackBar

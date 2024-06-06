@@ -1,6 +1,6 @@
-import { Button, CircularProgress, Grid, useTheme } from '@mui/material';
+import { Button, CircularProgress, Grid, useTheme } from '@mui/material'
 
-import styles from './styles';
+import styles from './styles'
 
 /**
  * Function for rendering a gradient outlined button with optional icon, text, and loading state.
@@ -44,15 +44,15 @@ const GradientOutlinedButton = (props) => {
     extraProps,
     extraButtonProps,
     ...otherProps
-  } = props;
+  } = props
 
-  const theme = useTheme();
+  const theme = useTheme()
 
   const setBackgroundColor = () => {
-    if (disabled || loading) return theme.palette.Greyscale[650];
-    if (inverted || active) return theme.palette.Background.gradient[color];
-    return bgcolor;
-  };
+    if (disabled || loading) return theme.palette.Greyscale[650]
+    if (inverted || active) return theme.palette.Background.gradient[color]
+    return bgcolor
+  }
 
   const renderButtonContent = () => {
     if (iconPlacement === 'left') {
@@ -61,7 +61,7 @@ const GradientOutlinedButton = (props) => {
           {icon}
           <span>{text}</span>
         </>
-      );
+      )
     }
 
     return (
@@ -69,10 +69,10 @@ const GradientOutlinedButton = (props) => {
         <span>{text}</span>
         {icon}
       </>
-    );
-  };
+    )
+  }
 
-  const renderLoader = () => <CircularProgress color="secondary" size={25} />;
+  const renderLoader = () => <CircularProgress color="secondary" size={25} />
 
   return (
     <Grid
@@ -107,7 +107,7 @@ const GradientOutlinedButton = (props) => {
         {loading ? renderLoader() : renderButtonContent()}
       </Button>
     </Grid>
-  );
-};
+  )
+}
 
-export default GradientOutlinedButton;
+export default GradientOutlinedButton

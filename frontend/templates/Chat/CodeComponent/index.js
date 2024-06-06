@@ -1,1 +1,1 @@
-export { default } from './CodeComponent';
+export { default } from './CodeComponent'

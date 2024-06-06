@@ -58,6 +58,6 @@ const styles = {
     spacing: 2,
     sx: { width: '100%' },
   },
-};
+}
 
-export default styles;
+export default styles

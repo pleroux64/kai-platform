@@ -1,1 +1,1 @@
-export { default } from './ToolForm';
+export { default } from './ToolForm'

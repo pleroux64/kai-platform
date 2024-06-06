@@ -117,6 +117,6 @@ const styles = {
       height: { laptop: 290, desktop: 300, desktopMedium: 324 },
     },
   },
-};
+}
 
-export default styles;
+export default styles
