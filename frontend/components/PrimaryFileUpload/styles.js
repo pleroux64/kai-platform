@@ -98,6 +98,6 @@ const styles = {
     fontSize: { laptop: '24px', desktop: '26px' },
     fontFamily: 'Satoshi Bold',
   }),
-};
+}
 
-export default styles;
+export default styles

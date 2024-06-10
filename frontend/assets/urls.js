@@ -7,6 +7,6 @@ const ImageURLs = {
     'https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/Purple_Blob_1.png?alt=media&token=e5bce404-78d0-4d9c-9e45-b63bddd936da',
   RexCircleAvatar:
     'https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/KaiProfilePic.png?alt=media&token=4cfcd644-8d86-4944-82a7-cf83b4519311',
-};
+}
 
-export default ImageURLs;
+export default ImageURLs

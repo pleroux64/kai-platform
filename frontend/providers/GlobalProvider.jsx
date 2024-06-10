@@ -1,17 +1,17 @@
-import { createContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useEffect, useMemo, useState } from 'react'
 
-import { onAuthStateChanged } from 'firebase/auth';
-import { Provider, useDispatch } from 'react-redux';
+import { onAuthStateChanged } from 'firebase/auth'
+import { Provider, useDispatch } from 'react-redux'
 
-import useRedirect from '@/hooks/useRedirect';
+import useRedirect from '@/hooks/useRedirect'
 
-import SnackBar from '@/components/SnackBar';
+import SnackBar from '@/components/SnackBar'
 
-import { setLoading, setUser } from '@/redux/slices/authSlice';
-import { setUserData } from '@/redux/slices/userSlice';
-import store, { auth, firestore, functions } from '@/redux/store';
+import { setLoading, setUser } from '@/redux/slices/authSlice'
+import { setUserData } from '@/redux/slices/userSlice'
+import store, { auth, firestore, functions } from '@/redux/store'
 
-const AuthContext = createContext();
+const AuthContext = createContext()
 
 /**
  * Creates an authentication provider to observe authentication state changes.
@@ -20,50 +20,50 @@ const AuthContext = createContext();
  * @return {Object} The child components wrapped in the authentication provider.
  */
 const AuthProvider = (props) => {
-  const { children } = props;
-  const dispatch = useDispatch();
+  const { children } = props
+  const dispatch = useDispatch()
 
-  const [open, setOpen] = useState(false);
-  const [severity, setSeverity] = useState('success');
-  const [message, setMessage] = useState('Default Message');
+  const [open, setOpen] = useState(false)
+  const [severity, setSeverity] = useState('success')
+  const [message, setMessage] = useState('Default Message')
 
   const handleOpenSnackBar = (newSeverity, newMessage) => {
-    setSeverity(newSeverity);
-    setMessage(newMessage);
-    setOpen(true);
-  };
+    setSeverity(newSeverity)
+    setMessage(newMessage)
+    setOpen(true)
+  }
 
   const memoizedValue = useMemo(() => {
     return {
       handleOpenSnackBar,
-    };
-  }, []);
+    }
+  }, [])
 
   useEffect(() => {
-    if (typeof window === 'undefined') return null;
+    if (typeof window === 'undefined') return null
 
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         // Get auth user claims
-        const { claims } = await user.getIdTokenResult(true);
-        return dispatch(setUser({ ...user.toJSON(), claims }));
+        const { claims } = await user.getIdTokenResult(true)
+        return dispatch(setUser({ ...user.toJSON(), claims }))
       }
 
-      dispatch(setLoading(false));
-      dispatch(setUser(false));
-      return dispatch(setUserData(false));
-    });
+      dispatch(setLoading(false))
+      dispatch(setUser(false))
+      return dispatch(setUserData(false))
+    })
 
     return () => {
-      unsubscribe();
-    };
-  }, []);
+      unsubscribe()
+    }
+  }, [])
 
-  useRedirect(firestore, functions, handleOpenSnackBar);
+  useRedirect(firestore, functions, handleOpenSnackBar)
 
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   return (
     <AuthContext.Provider value={memoizedValue}>
@@ -75,8 +75,8 @@ const AuthProvider = (props) => {
         handleClose={handleClose}
       />
     </AuthContext.Provider>
-  );
-};
+  )
+}
 
 /**
  * Creates a global provider component that wraps the entire app and provides access to the Redux store and authentication.
@@ -86,14 +86,14 @@ const AuthProvider = (props) => {
  * @return {JSX.Element} The provider component.
  */
 const GlobalProvider = (props) => {
-  const { children } = props;
+  const { children } = props
   return (
     <Provider store={store}>
       <AuthProvider>{children}</AuthProvider>
     </Provider>
-  );
-};
+  )
+}
 
-export { AuthContext };
+export { AuthContext }
 
-export default GlobalProvider;
+export default GlobalProvider

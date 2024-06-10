@@ -1,1 +1,1 @@
-export { default } from './PrimaryFileUpload';
+export { default } from './PrimaryFileUpload'

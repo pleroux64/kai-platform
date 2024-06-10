@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import { Fade, Grid } from '@mui/material';
+import { Fade, Grid } from '@mui/material'
 
-import styles from './styles';
+import styles from './styles'
 
 const ImageMessage = (props) => {
-  const { link } = props;
+  const { link } = props
   return (
     <Fade in direction="up">
       <Grid id="message" {...styles.mainGridProps}>
@@ -22,7 +22,7 @@ const ImageMessage = (props) => {
         </Grid>
       </Grid>
     </Fade>
-  );
-};
+  )
+}
 
-export default ImageMessage;
+export default ImageMessage

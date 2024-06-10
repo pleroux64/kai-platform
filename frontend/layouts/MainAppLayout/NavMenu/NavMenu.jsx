@@ -1,14 +1,14 @@
-import { Grid, MenuItem } from '@mui/material';
-import { useRouter } from 'next/router';
+import { Grid, MenuItem } from '@mui/material'
+import { useRouter } from 'next/router'
 
-import Briefcase from '@/assets/svg/Briefcase.svg';
-import ChatBubble from '@/assets/svg/ChatBubble.svg';
+import Briefcase from '@/assets/svg/Briefcase.svg'
+import ChatBubble from '@/assets/svg/ChatBubble.svg'
 
-import ROUTES from '@/constants/routes';
+import ROUTES from '@/constants/routes'
 
-import styles from './styles';
+import styles from './styles'
 
-import { chatRegex, homeRegex } from '@/regex/routes';
+import { chatRegex, homeRegex } from '@/regex/routes'
 
 const PAGES = [
   {
@@ -23,7 +23,7 @@ const PAGES = [
     icon: <ChatBubble />,
     id: 'page_2',
   },
-];
+]
 
 /**
  * Returns a navigation menu component that displays a list of links.
@@ -31,22 +31,21 @@ const PAGES = [
  * @return {JSX.Element} A React component that renders a navigation menu.
  */
 const NavMenu = () => {
-  const router = useRouter();
-  const { pathname } = router;
+  const router = useRouter()
+  const { pathname } = router
 
   const setActive = (id) => {
-    const isNotHomePage = [chatRegex.test(pathname)].includes(true);
+    const isNotHomePage = [chatRegex.test(pathname)].includes(true)
 
-    if (id === 'page_1')
-      return isNotHomePage ? false : homeRegex.test(pathname);
+    if (id === 'page_1') return isNotHomePage ? false : homeRegex.test(pathname)
 
-    return chatRegex.test(pathname);
-  };
+    return chatRegex.test(pathname)
+  }
 
   const handleRoute = (link, id) => {
-    router.push(link);
-    setActive(id);
-  };
+    router.push(link)
+    setActive(id)
+  }
 
   return (
     <Grid {...styles.mainGridProps}>
@@ -63,7 +62,7 @@ const NavMenu = () => {
         </MenuItem>
       ))}
     </Grid>
-  );
-};
+  )
+}
 
-export default NavMenu;
+export default NavMenu

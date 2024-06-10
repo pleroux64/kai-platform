@@ -1,6 +1,6 @@
-import { CircularProgress, Grid } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material'
 
-import styles from './styles';
+import styles from './styles'
 
 /**
  * Renders a secondary loader component.
@@ -8,13 +8,13 @@ import styles from './styles';
  * @return {JSX.Element} The secondary loader component.
  */
 const SecondaryLoader = (props) => {
-  const { size } = props;
+  const { size } = props
 
   return (
     <Grid {...styles.loaderGridProps}>
       <CircularProgress size={size || 50} {...styles.loaderProps} />
     </Grid>
-  );
-};
+  )
+}
 
-export default SecondaryLoader;
+export default SecondaryLoader

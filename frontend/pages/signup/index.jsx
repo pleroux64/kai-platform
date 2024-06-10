@@ -1,25 +1,25 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
-import { ArrowBack } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material'
+import { IconButton } from '@mui/material'
 
-import AuthForm from '@/components/AuthForm';
-import AuthLayout from '@/layouts/AuthLayout';
+import AuthForm from '@/components/AuthForm'
+import AuthLayout from '@/layouts/AuthLayout'
 
-import SignUpForm from '@/templates/SignUp/SignUpForm';
-import VerifyEmailPage from '@/templates/SignUp/VerifyEmailPage';
+import SignUpForm from '@/templates/SignUp/SignUpForm'
+import VerifyEmailPage from '@/templates/SignUp/VerifyEmailPage'
 
-import { AUTH_STEPS } from '@/constants/auth';
-import ROUTES from '@/constants/routes';
+import { AUTH_STEPS } from '@/constants/auth'
+import ROUTES from '@/constants/routes'
 
-import sharedStyles from '@/styles/shared/sharedStyles';
+import sharedStyles from '@/styles/shared/sharedStyles'
 
 const TITLE_CONFIG = {
   main: 'sign up 🌟',
   subtitle: 'Already have an account?',
   linklabel: 'Sign in',
   route: ROUTES.SIGNIN,
-};
+}
 
 /**
  * Renders a sign-up form with email and password inputs,
@@ -28,17 +28,17 @@ const TITLE_CONFIG = {
  * @return {JSX.Element} Returns a JSX element of the AuthForm component.
  */
 const SignUp = () => {
-  const [isSignUp, setIsSignUp] = useState(true);
-  const [authStep, setAuthStep] = useState(AUTH_STEPS.EMAIL);
-  const [email, setEmail] = useState('');
+  const [isSignUp, setIsSignUp] = useState(true)
+  const [authStep, setAuthStep] = useState(AUTH_STEPS.EMAIL)
+  const [email, setEmail] = useState('')
 
   const handleSwitchScreen = () => {
-    setIsSignUp((prev) => !prev);
-  };
+    setIsSignUp((prev) => !prev)
+  }
 
   const handleGoBack = () => {
-    setAuthStep(AUTH_STEPS.EMAIL);
-  };
+    setAuthStep(AUTH_STEPS.EMAIL)
+  }
 
   const renderGoBack = () => {
     if (authStep === AUTH_STEPS.PASSWORD) {
@@ -50,11 +50,11 @@ const SignUp = () => {
         >
           <ArrowBack />
         </IconButton>
-      );
+      )
     }
 
-    return null;
-  };
+    return null
+  }
 
   const renderForm = () => {
     return (
@@ -70,23 +70,23 @@ const SignUp = () => {
         goBack={renderGoBack()}
         title={TITLE_CONFIG}
       />
-    );
-  };
+    )
+  }
 
   const renderVerifyEmail = () => {
-    return <VerifyEmailPage email={email} />;
-  };
+    return <VerifyEmailPage email={email} />
+  }
 
   return (
     <>
       {isSignUp && renderForm()}
       {!isSignUp && renderVerifyEmail()}
     </>
-  );
-};
+  )
+}
 
 SignUp.getLayout = function getLayout(page) {
-  return <AuthLayout isAuthScreen>{page}</AuthLayout>;
-};
+  return <AuthLayout isAuthScreen>{page}</AuthLayout>
+}
 
-export default SignUp;
+export default SignUp

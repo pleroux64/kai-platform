@@ -1,11 +1,11 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material'
 
-import ToolsListingContainer from '@/components/ToolsListingContainer';
+import ToolsListingContainer from '@/components/ToolsListingContainer'
 
-import styles from './styles';
+import styles from './styles'
 
 const HomePage = (props) => {
-  const { data, loading } = props;
+  const { data, loading } = props
 
   const renderTitle = () => {
     return (
@@ -19,8 +19,8 @@ const HomePage = (props) => {
           <Typography {...styles.highlightTextProps}>educators</Typography>
         </Typography>
       </Grid>
-    );
-  };
+    )
+  }
 
   return (
     <Grid {...styles.mainGridProps}>
@@ -31,6 +31,6 @@ const HomePage = (props) => {
         category="All Tools"
       />
     </Grid>
-  );
-};
-export default HomePage;
+  )
+}
+export default HomePage

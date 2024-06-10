@@ -1,8 +1,8 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material'
 
-import Link from 'next/link.js';
+import Link from 'next/link.js'
 
-import styles from './styles.js';
+import styles from './styles.js'
 
 /**
  * Renders an authentication form with options for local authentication and third-party authentication services.
@@ -21,7 +21,7 @@ const AuthForm = (props) => {
     form,
     goBack,
     title: { main, subtitle, route, linklabel },
-  } = props;
+  } = props
 
   const renderTitle = () => {
     return (
@@ -31,12 +31,12 @@ const AuthForm = (props) => {
           {subtitle} <Link href={route}>{linklabel}</Link>
         </Typography>
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderForm = () => {
-    return <Grid {...styles.formGridProps}>{form}</Grid>;
-  };
+    return <Grid {...styles.formGridProps}>{form}</Grid>
+  }
 
   const renderPolicyInfo = () => {
     return (
@@ -48,8 +48,8 @@ const AuthForm = (props) => {
           Privacy Policy and Terms of Service apply.
         </Typography>
       </Grid>
-    );
-  };
+    )
+  }
 
   return (
     <Grid {...styles.mainGridProps}>
@@ -58,7 +58,7 @@ const AuthForm = (props) => {
       {renderForm()}
       {renderPolicyInfo()}
     </Grid>
-  );
-};
+  )
+}
 
-export default AuthForm;
+export default AuthForm

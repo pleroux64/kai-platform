@@ -67,6 +67,6 @@ const styles = {
     mobileSmall: true,
     fontSize: { mobileSmall: '16px', desktop: '18px' },
   },
-};
+}
 
-export default styles;
+export default styles

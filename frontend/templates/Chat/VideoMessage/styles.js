@@ -41,6 +41,6 @@ const styles = {
       transform: 'translate(-50%, -50%)',
     },
   },
-};
+}
 
-export default styles;
+export default styles

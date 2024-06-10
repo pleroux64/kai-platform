@@ -1,1 +1,1 @@
-export { default } from './OutputHistoryTable';
+export { default } from './OutputHistoryTable'

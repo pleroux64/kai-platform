@@ -124,6 +124,6 @@ const styles = {
     fontFamily: 'Satoshi Regular',
     fontSize: '16px',
   },
-};
+}
 
-export default styles;
+export default styles

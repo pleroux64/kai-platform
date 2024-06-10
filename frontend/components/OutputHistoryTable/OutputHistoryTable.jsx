@@ -1,5 +1,4 @@
-// frontend/components/OutputHistoryTable/OutputHistoryTable.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 
 import {
   Grid,
@@ -13,92 +12,131 @@ import {
   TableSortLabel,
   TextField,
   useMediaQuery,
-} from '@mui/material';
+} from '@mui/material'
+import { useTheme } from '@mui/material/styles'
+import { collection, getDocs } from 'firebase/firestore'
 
-import { auth } from 'firebase-admin';
+import { db } from '../../firebase/firebase' // Correct path
 
-import { functions } from './firebase';
-import useStyles from './styles';
+import styles from './styles'
 
+/**
+ * Renders the OutputHistoryTable component.
+ *
+ * @return {ReactElement} The rendered OutputHistoryTable component.
+ */
 const OutputHistoryTable = () => {
-  const classes = useStyles();
-  const [data, setData] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [outputs, setOutputs] = useState([])
+  const [order, setOrder] = useState('asc')
+  const [orderBy, setOrderBy] = useState('title')
+  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
-      const user = auth.currentUser;
-      const userID = user.uid;
-      const getHist = functions.httpsCallable('getHist');
-      try {
-        const result = await getHist({ uid: userID });
-        setData(result.data.data); // Assuming result.data has the structure { status: 'success', data: [...] }
-      } catch (error) {
-        throw new Error(error);
-      }
-    };
+      const querySnapshot = await getDocs(collection(db, 'outputs'))
+      const data = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
+      setOutputs(data)
+    }
 
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
-  // Handle search input change
+  const handleSortRequest = (property) => {
+    const isAsc = orderBy === property && order === 'asc'
+    setOrder(isAsc ? 'desc' : 'asc')
+    setOrderBy(property)
+  }
+
   const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
+    setSearchQuery(event.target.value)
+  }
 
-  // Filter data based on search query
-  const filteredData = data.filter((item) =>
-    item.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredOutputs = outputs.filter((output) =>
+    output.title.toLowerCase().includes(searchQuery.toLowerCase())
+  )
 
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+
+  const renderSearchInput = () => (
+    <Grid
+      item
+      xs={12}
+      sm={isMobile ? 6 : 12}
+      md={4}
+      style={{ display: 'flex', flexWrap: 'wrap' }}
+    >
+      <TextField
+        variant="outlined"
+        placeholder="Search outputs"
+        onChange={handleSearchChange}
+        {...styles.searchInputProps}
+      />
+    </Grid>
+  )
+
+  const renderTableHeader = () => (
+    <TableHead>
+      <TableRow>
+        <TableCell>
+          <TableSortLabel
+            active={orderBy === 'title'}
+            direction={orderBy === 'title' ? order : 'asc'}
+            onClick={() => handleSortRequest('title')}
+          >
+            Title
+          </TableSortLabel>
+        </TableCell>
+        <TableCell>
+          <TableSortLabel
+            active={orderBy === 'type'}
+            direction={orderBy === 'type' ? order : 'asc'}
+            onClick={() => handleSortRequest('type')}
+          >
+            Type
+          </TableSortLabel>
+        </TableCell>
+        <TableCell>
+          <TableSortLabel
+            active={orderBy === 'creationDate'}
+            direction={orderBy === 'creationDate' ? order : 'asc'}
+            onClick={() => handleSortRequest('creationDate')}
+          >
+            Creation Date
+          </TableSortLabel>
+        </TableCell>
+      </TableRow>
+    </TableHead>
+  )
+
+  const renderTableBody = () => (
+    <TableBody>
+      {filteredOutputs.map((output) => (
+        <TableRow key={output.id}>
+          <TableCell>{output.title}</TableCell>
+          <TableCell>{output.type}</TableCell>
+          <TableCell>{output.creationDate}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  )
 
   return (
-    <Grid container spacing={2} className={classes.container}>
-      <Grid
-        item
-        xs={12}
-        sm={isMobile ? 6 : 12}
-        md={4}
-        style={{ display: 'flex', flexWrap: 'wrap' }}
-      >
-        <TextField
-          variant="outlined"
-          placeholder="Search outputs"
-          onChange={handleSearchChange}
-          className={classes.searchInput}
-        />
-      </Grid>
+    <Grid container spacing={2} {...styles.containerProps}>
+      {renderSearchInput()}
       <Grid item xs={12} sm={isMobile ? 6 : 12} md={4}>
         <TableContainer component={Paper}>
           <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <TableSortLabel>Title</TableSortLabel>
-                </TableCell>
-                <TableCell>
-                  <TableSortLabel>Type</TableSortLabel>
-                </TableCell>
-                <TableCell>
-                  <TableSortLabel>Creation Date</TableSortLabel>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {filteredData.map((output) => (
-                <TableRow key={output.id}>
-                  <TableCell>{output.title}</TableCell>
-                  <TableCell>{output.type}</TableCell>
-                  <TableCell>{output.creationDate}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+            {renderTableHeader()}
+            {renderTableBody()}
           </Table>
         </TableContainer>
       </Grid>
     </Grid>
-  );
-};
+  )
+}
 
-export default OutputHistoryTable;
+export default OutputHistoryTable

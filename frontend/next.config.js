@@ -1,14 +1,15 @@
-const dotenv = require('dotenv');
-const withTM = require('next-transpile-modules')(['react-syntax-highlighter']);
+const dotenv = require('dotenv')
+const withTM = require('next-transpile-modules')(['react-syntax-highlighter'])
 
 // Load environment variables from a specific file in the parent directory
-dotenv.config({ path: '../.env' });
+dotenv.config({ path: '../.env' })
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
-};
+  trailingSlash: true,
+}
 
 module.exports = withTM({
   ...nextConfig,
@@ -29,8 +30,8 @@ module.exports = withTM({
       test: /.svg$/i,
       issuer: /.[jt]sx?$/,
       use: ['@svgr/webpack'],
-    });
+    })
 
-    return config;
+    return config
   },
-});
+})

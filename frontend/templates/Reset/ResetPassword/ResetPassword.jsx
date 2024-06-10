@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import {
   Grid,
   IconButton,
@@ -8,73 +8,73 @@ import {
   Link,
   Typography,
   useTheme,
-} from '@mui/material';
-import { confirmPasswordReset } from 'firebase/auth';
-import { useRouter } from 'next/router';
+} from '@mui/material'
+import { confirmPasswordReset } from 'firebase/auth'
+import { useRouter } from 'next/router'
 
-import useWatchFields from '@/hooks/useWatchFields';
+import useWatchFields from '@/hooks/useWatchFields'
 
-import GradientOutlinedButton from '@/components/GradientOutlinedButton';
-import Loader from '@/components/Loader';
-import ProfileInputField from '@/components/ProfileInputField';
+import GradientOutlinedButton from '@/components/GradientOutlinedButton'
+import Loader from '@/components/Loader'
+import ProfileInputField from '@/components/ProfileInputField'
 
-import ROUTES from '@/constants/routes';
+import ROUTES from '@/constants/routes'
 
-import styles from './styles';
+import styles from './styles'
 
-import { auth } from '@/redux/store';
-import AUTH_REGEX from '@/regex/auth';
+import { auth } from '@/redux/store'
+import AUTH_REGEX from '@/regex/auth'
 
 const WATCH_FIELDS = [
   {
     fieldName: 'password',
     regexPattern: AUTH_REGEX.password.regex,
   },
-];
+]
 
 const DEFAULT_ERR_STATE = {
   password: false,
-};
+}
 
 const ResetPassword = (props) => {
-  const { handleSwitch } = props;
+  const { handleSwitch } = props
 
-  const theme = useTheme();
+  const theme = useTheme()
 
-  const router = useRouter();
+  const router = useRouter()
   const {
     query: { oobCode },
-  } = router;
+  } = router
 
-  const [error, setError] = useState(DEFAULT_ERR_STATE);
-  const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(DEFAULT_ERR_STATE)
+  const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
-  const { register, control, fieldStates } = useWatchFields(WATCH_FIELDS);
-  const { password } = fieldStates;
+  const { register, control, fieldStates } = useWatchFields(WATCH_FIELDS)
+  const { password } = fieldStates
 
   if (!oobCode) {
-    router.push(ROUTES.HOME);
-    return <Loader />;
+    router.push(ROUTES.HOME)
+    return <Loader />
   }
 
   const handleSubmit = () => {
-    setLoading(true);
+    setLoading(true)
     return confirmPasswordReset(auth, oobCode, password.value)
       .then(() => {
-        handleSwitch();
+        handleSwitch()
       })
       .catch(() => {
-        setError({ email: { message: 'Could not reset password' } });
+        setError({ email: { message: 'Could not reset password' } })
       })
       .finally(() => {
-        setLoading(false);
-      });
-  };
+        setLoading(false)
+      })
+  }
 
   const handleClickShowPassword = () => {
-    setShowPassword((prev) => !prev);
-  };
+    setShowPassword((prev) => !prev)
+  }
 
   const renderVisibilityIcon = () => {
     return (
@@ -87,16 +87,16 @@ const ResetPassword = (props) => {
           {showPassword ? <Visibility /> : <VisibilityOff />}
         </IconButton>
       </InputAdornment>
-    );
-  };
+    )
+  }
 
   const renderTitle = () => {
     return (
       <Grid {...styles.titleGridProps}>
         <Typography {...styles.titleProps}>Reset Password</Typography>
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderPasswordInput = () => {
     return (
@@ -116,8 +116,8 @@ const ResetPassword = (props) => {
           focused
         />
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderResendButton = () => {
     return (
@@ -132,8 +132,8 @@ const ResetPassword = (props) => {
           {...styles.submitButtonProps}
         />
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderContactHelp = () => {
     return (
@@ -143,8 +143,8 @@ const ResetPassword = (props) => {
           <Link {...styles.linkProps}>Contact Help Center</Link>
         </Typography>
       </Grid>
-    );
-  };
+    )
+  }
 
   return (
     <Grid {...styles.mainGridProps}>
@@ -155,7 +155,7 @@ const ResetPassword = (props) => {
         {renderContactHelp()}
       </Grid>
     </Grid>
-  );
-};
+  )
+}
 
-export default ResetPassword;
+export default ResetPassword

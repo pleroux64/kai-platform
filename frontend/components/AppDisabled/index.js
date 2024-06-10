@@ -1,1 +1,1 @@
-export { default } from './AppDisabled';
+export { default } from './AppDisabled'

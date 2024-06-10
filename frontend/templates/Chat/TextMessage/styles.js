@@ -70,6 +70,6 @@ const styles = {
       background: (theme) => isMyMessage && theme.palette.primary.main,
     },
   }),
-};
+}
 
-export default styles;
+export default styles

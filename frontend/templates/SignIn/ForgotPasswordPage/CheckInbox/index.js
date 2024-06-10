@@ -1,1 +1,1 @@
-export { default } from './CheckInbox';
+export { default } from './CheckInbox'

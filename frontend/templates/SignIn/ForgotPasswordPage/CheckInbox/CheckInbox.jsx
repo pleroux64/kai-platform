@@ -1,23 +1,23 @@
-import { Grid, Link, Typography, useTheme } from '@mui/material';
+import { Grid, Link, Typography, useTheme } from '@mui/material'
 
-import GradientOutlinedButton from '@/components/GradientOutlinedButton';
+import GradientOutlinedButton from '@/components/GradientOutlinedButton'
 
-import CartoonLetter from '@/assets/svg/CartoonLetter.svg';
+import CartoonLetter from '@/assets/svg/CartoonLetter.svg'
 
-import styles from './styles';
+import styles from './styles'
 
-import { auth } from '@/redux/store';
+import { auth } from '@/redux/store'
 
-import { sendPasswordReset } from '@/services/user/manageUser';
+import { sendPasswordReset } from '@/services/user/manageUser'
 
 const CheckInbox = (props) => {
-  const { goBack, enteredEmail } = props;
+  const { goBack, enteredEmail } = props
 
-  const theme = useTheme();
+  const theme = useTheme()
 
   const handleResendEmail = () => {
-    sendPasswordReset(auth, enteredEmail);
-  };
+    sendPasswordReset(auth, enteredEmail)
+  }
 
   const renderResendButton = () => {
     return (
@@ -29,8 +29,8 @@ const CheckInbox = (props) => {
           {...styles.buttonProps}
         />
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderResendText = () => {
     return (
@@ -40,16 +40,16 @@ const CheckInbox = (props) => {
           spam folder, click below and we will send you a new one.
         </Typography>
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderHeader = () => {
     return (
       <Grid {...styles.headerGridProps}>
         <Typography {...styles.headerProps}>Check Your Inbox</Typography>
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderIcon = () => {
     return (
@@ -58,8 +58,8 @@ const CheckInbox = (props) => {
           <CartoonLetter />
         </Grid>
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderMessage = () => {
     return (
@@ -71,8 +71,8 @@ const CheckInbox = (props) => {
           </Typography>
         </Grid>
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderResend = () => {
     return (
@@ -80,8 +80,8 @@ const CheckInbox = (props) => {
         {renderResendText()}
         {renderResendButton()}
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderContactHelp = () => {
     return (
@@ -91,8 +91,8 @@ const CheckInbox = (props) => {
           <Link {...styles.linkProps}>Contact Help Center</Link>
         </Typography>
       </Grid>
-    );
-  };
+    )
+  }
 
   return (
     <Grid {...styles.mainGridProps}>
@@ -105,7 +105,7 @@ const CheckInbox = (props) => {
         {renderContactHelp()}
       </Grid>
     </Grid>
-  );
-};
+  )
+}
 
-export default CheckInbox;
+export default CheckInbox

@@ -1,1 +1,1 @@
-export { default } from './AccordionInputGroupItem';
+export { default } from './AccordionInputGroupItem'

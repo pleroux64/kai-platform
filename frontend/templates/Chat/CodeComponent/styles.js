@@ -7,6 +7,6 @@ const styles = {
     padding: '2px 4px',
     whitespace: 'pre-wrap !important',
   }),
-};
+}
 
-export default styles;
+export default styles

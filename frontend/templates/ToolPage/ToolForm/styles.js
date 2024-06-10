@@ -62,6 +62,6 @@ const styles = {
       px: { laptop: 5, desktop: 6, desktopMedium: 7 },
     },
   },
-};
+}
 
-export default styles;
+export default styles

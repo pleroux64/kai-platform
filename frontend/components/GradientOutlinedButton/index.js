@@ -1,1 +1,1 @@
-export { default } from './GradientOutlinedButton';
+export { default } from './GradientOutlinedButton'

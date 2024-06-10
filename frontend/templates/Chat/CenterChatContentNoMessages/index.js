@@ -1,1 +1,1 @@
-export { default } from './CenterChatContentNoMessages';
+export { default } from './CenterChatContentNoMessages'

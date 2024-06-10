@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
-import { MESSAGE_ROLE, MESSAGE_TYPES } from '@/constants/bots';
+import { MESSAGE_ROLE, MESSAGE_TYPES } from '@/constants/bots'
 
 const initialState = {
   input: '',
@@ -20,7 +20,7 @@ const initialState = {
   historyLoaded: false,
   streamingDone: false,
   streaming: false,
-};
+}
 
 const chatSlice = createSlice({
   name: 'chat',
@@ -32,28 +32,28 @@ const chatSlice = createSlice({
       sessions: state.sessions,
     }),
     setInput: (state, action) => {
-      state.input = action.payload;
+      state.input = action.payload
     },
     setChatUser: (state, action) => {
-      state.chatUser = action.payload;
+      state.chatUser = action.payload
     },
     setMore: (state, action) => {
-      const { role } = action.payload;
-      if (role === 'toggle') state.more = !state.more;
-      if (role === 'shutdown') state.more = false;
+      const { role } = action.payload
+      if (role === 'toggle') state.more = !state.more
+      if (role === 'shutdown') state.more = false
     },
     openInfoChat: (state) => {
-      state.infoChatOpened = true;
-      state.more = false;
+      state.infoChatOpened = true
+      state.more = false
     },
     closeInfoChat: (state) => {
-      state.infoChatOpened = false;
+      state.infoChatOpened = false
     },
     closeSettingsChat: (state) => {
-      state.openSettingsChat = false;
+      state.openSettingsChat = false
     },
     setMessages: (state, action) => {
-      const { role, response } = action.payload;
+      const { role, response } = action.payload
 
       if (role === MESSAGE_ROLE.HUMAN) {
         const message = {
@@ -62,7 +62,7 @@ const chatSlice = createSlice({
           payload: {
             text: state.input,
           },
-        };
+        }
 
         return {
           ...state,
@@ -71,7 +71,7 @@ const chatSlice = createSlice({
             messages: [...(state.chat?.messages || []), message],
           },
           input: '',
-        };
+        }
       }
 
       return {
@@ -81,52 +81,52 @@ const chatSlice = createSlice({
           messages: [...(state.chat?.messages || []), response],
         },
         input: '',
-      };
+      }
     },
     setSessionLoaded: (state, action) => {
-      state.sessionLoaded = action.payload;
+      state.sessionLoaded = action.payload
     },
     setHistoryLoaded: (state, action) => {
-      state.historyLoaded = action.payload;
+      state.historyLoaded = action.payload
     },
     setChatSession: (state, action) => {
-      const session = action.payload;
+      const session = action.payload
 
-      localStorage.setItem('sessionId', session.id);
+      localStorage.setItem('sessionId', session.id)
 
-      state.chat = session;
+      state.chat = session
     },
     setTyping: (state, action) => {
-      state.typing = action.payload;
+      state.typing = action.payload
     },
     setFullyScrolled: (state, action) => {
-      state.fullyScrolled = action.payload;
+      state.fullyScrolled = action.payload
     },
     setStreamingDone: (state, action) => {
-      state.streamingDone = action.payload;
+      state.streamingDone = action.payload
     },
     setError: (state, action) => {
-      state.error = action.payload;
+      state.error = action.payload
     },
     setChatStarted: (state, action) => {
-      state.started = action.payload;
+      state.started = action.payload
     },
     setSelectedOption: (state, action) => {
-      const { selectedOption, questionId } = action.payload;
+      const { selectedOption, questionId } = action.payload
       state.emaChat = {
         ...state.emaChat,
         questionId,
         choice: selectedOption,
-      };
+      }
     },
     setStreaming: (state, action) => {
-      state.streaming = action.payload;
+      state.streaming = action.payload
     },
     setExerciseId: (state, action) => {
-      state.exerciseId = action.payload;
+      state.exerciseId = action.payload
     },
   },
-});
+})
 
 export const {
   setInput,
@@ -151,6 +151,6 @@ export const {
   resetExplainMyAnswer,
   setStreaming,
   setHistoryLoaded,
-} = chatSlice.actions;
+} = chatSlice.actions
 
-export default chatSlice.reducer;
+export default chatSlice.reducer

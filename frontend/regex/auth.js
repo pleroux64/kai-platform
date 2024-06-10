@@ -18,7 +18,7 @@ Checks that a password has a minimum of 6 characters, at least 1 uppercase lette
     regex: /^[a-zA-Z0-9. ]+$/,
     message: 'Invalid full name',
   },
-};
+}
 
 const PASSWORD_REGEX = {
   length: /.{6,}/,
@@ -26,8 +26,8 @@ const PASSWORD_REGEX = {
   lowercase: /[a-z]/,
   number: /\d/,
   noSpaces: /\S/,
-};
+}
 
-export { PASSWORD_REGEX };
+export { PASSWORD_REGEX }
 
-export default AUTH_REGEX;
+export default AUTH_REGEX

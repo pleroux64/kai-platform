@@ -81,6 +81,6 @@ const styles = {
     color: '#AD83FF',
     textAlign: 'left',
   },
-};
+}
 
-export default styles;
+export default styles

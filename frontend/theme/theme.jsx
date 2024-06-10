@@ -1,14 +1,14 @@
 /* eslint-disable no-dupe-keys */
-import { createTheme } from '@mui/material/styles';
-import SvgIcon from '@mui/material/SvgIcon';
+import { createTheme } from '@mui/material/styles'
+import SvgIcon from '@mui/material/SvgIcon'
 
-import CheckBoxFilled from '@/assets/svg/_CheckBoxFilled.svg';
-import CheckBoxOutlineBlank from '@/assets/svg/_CheckBoxOutlineBlankOutlined.svg';
-import CheckCircleOutlined from '@/assets/svg/_CheckCircleOutlined.svg';
-import ErrorOutline from '@/assets/svg/_ErrorOutline.svg';
-import IndeterminateCheckBo from '@/assets/svg/_IndeterminateCheckBoxFilled.svg';
-import InfoOutlined from '@/assets/svg/_InfoOutlined.svg';
-import WarningAmberOutlined from '@/assets/svg/_WarningAmberOutlined.svg';
+import CheckBoxFilled from '@/assets/svg/_CheckBoxFilled.svg'
+import CheckBoxOutlineBlank from '@/assets/svg/_CheckBoxOutlineBlankOutlined.svg'
+import CheckCircleOutlined from '@/assets/svg/_CheckCircleOutlined.svg'
+import ErrorOutline from '@/assets/svg/_ErrorOutline.svg'
+import IndeterminateCheckBo from '@/assets/svg/_IndeterminateCheckBoxFilled.svg'
+import InfoOutlined from '@/assets/svg/_InfoOutlined.svg'
+import WarningAmberOutlined from '@/assets/svg/_WarningAmberOutlined.svg'
 
 const globalTheme = createTheme({
   palette: {
@@ -772,7 +772,7 @@ const globalTheme = createTheme({
       desktopExtraLarge: 1921,
     },
   },
-});
+})
 
 const theme = createTheme(
   {
@@ -2058,6 +2058,6 @@ const theme = createTheme(
     },
   },
   globalTheme
-);
+)
 
-export default theme;
+export default theme

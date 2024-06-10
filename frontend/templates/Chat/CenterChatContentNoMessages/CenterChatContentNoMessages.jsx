@@ -1,10 +1,10 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material'
 
-import Image from 'next/image';
+import Image from 'next/image'
 
-import ImageURLs from '@/assets/urls';
+import ImageURLs from '@/assets/urls'
 
-import styles from './styles';
+import styles from './styles'
 
 const CenterChatContentNoMessages = () => {
   const renderProfilePic = () => {
@@ -25,8 +25,8 @@ const CenterChatContentNoMessages = () => {
           </Typography>
         </Grid>
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderDescription = () => {
     return (
@@ -39,8 +39,8 @@ const CenterChatContentNoMessages = () => {
           help you today?
         </Typography>
       </Grid>
-    );
-  };
+    )
+  }
   return (
     <Grid {...styles.mainGridProps}>
       <Grid {...styles.noMessagesGridProps}>
@@ -48,6 +48,6 @@ const CenterChatContentNoMessages = () => {
         {renderDescription()}
       </Grid>
     </Grid>
-  );
-};
-export default CenterChatContentNoMessages;
+  )
+}
+export default CenterChatContentNoMessages

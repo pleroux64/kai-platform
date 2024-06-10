@@ -8,6 +8,6 @@ const styles = {
   loaderProps: {
     color: 'secondary',
   },
-};
+}
 
-export default styles;
+export default styles

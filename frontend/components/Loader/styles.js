@@ -8,6 +8,6 @@ const styles = {
     height: '100vh',
     bgcolor: 'white',
   },
-};
+}
 
-export default styles;
+export default styles

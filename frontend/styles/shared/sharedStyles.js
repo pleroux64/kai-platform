@@ -48,6 +48,6 @@ const sharedStyles = {
       left: { laptop: '15px', desktop: '50px' },
     },
   },
-};
+}
 
-export default sharedStyles;
+export default sharedStyles

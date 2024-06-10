@@ -1,1 +1,1 @@
-export { default } from './ChatSpinner';
+export { default } from './ChatSpinner'

@@ -1,18 +1,18 @@
-import { LogoutOutlined } from '@mui/icons-material';
-import { Button, Grid, Typography } from '@mui/material';
+import { LogoutOutlined } from '@mui/icons-material'
+import { Button, Grid, Typography } from '@mui/material'
 
-import { signOut } from 'firebase/auth';
-import { useRouter } from 'next/router';
+import { signOut } from 'firebase/auth'
+import { useRouter } from 'next/router'
 
-import LargeLogo from '@/assets/svg/MenuLogo.svg';
+import LargeLogo from '@/assets/svg/MenuLogo.svg'
 
-import ROUTES from '@/constants/routes';
+import ROUTES from '@/constants/routes'
 
-import NavMenu from '../NavMenu';
+import NavMenu from '../NavMenu'
 
-import styles from './styles';
+import styles from './styles'
 
-import { auth } from '@/redux/store';
+import { auth } from '@/redux/store'
 
 /**
  * Renders the Side Menu.
@@ -20,11 +20,11 @@ import { auth } from '@/redux/store';
  * @return {ReactNode} The rendered Side Menu.
  */
 const SideMenu = () => {
-  const router = useRouter();
+  const router = useRouter()
 
   const handleSignOutUser = () => {
-    signOut(auth);
-  };
+    signOut(auth)
+  }
 
   const renderLogo = () => {
     return (
@@ -39,8 +39,8 @@ const SideMenu = () => {
           </Typography>
         </Grid>
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderLogout = () => {
     return (
@@ -53,8 +53,8 @@ const SideMenu = () => {
           Logout
         </Button>
       </Grid>
-    );
-  };
+    )
+  }
 
   return (
     <Grid {...styles.mainGridProps}>
@@ -62,7 +62,7 @@ const SideMenu = () => {
       <NavMenu />
       {renderLogout()}
     </Grid>
-  );
-};
+  )
+}
 
-export default SideMenu;
+export default SideMenu

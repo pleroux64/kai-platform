@@ -30,6 +30,6 @@ const styles = {
       lineHeight: '20px',
     },
   }),
-};
+}
 
-export default styles;
+export default styles

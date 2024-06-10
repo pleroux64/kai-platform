@@ -1,39 +1,39 @@
-import { useContext, useState } from 'react';
+import { useContext, useState } from 'react'
 
-import { Grid, useTheme } from '@mui/material';
-import { FormContainer } from 'react-hook-form-mui';
+import { Grid, useTheme } from '@mui/material'
+import { FormContainer } from 'react-hook-form-mui'
 
-import useWatchFields from '@/hooks/useWatchFields';
+import useWatchFields from '@/hooks/useWatchFields'
 
-import AuthTextField from '@/components/AuthTextField';
+import AuthTextField from '@/components/AuthTextField'
 
-import GradientOutlinedButton from '@/components/GradientOutlinedButton';
+import GradientOutlinedButton from '@/components/GradientOutlinedButton'
 
-import { AUTH_STEPS, VALIDATION_STATES } from '@/constants/auth';
-import ALERT_COLORS from '@/constants/notification';
+import { AUTH_STEPS, VALIDATION_STATES } from '@/constants/auth'
+import ALERT_COLORS from '@/constants/notification'
 
-import styles from './styles';
+import styles from './styles'
 
-import sharedStyles from '@/styles/shared/sharedStyles';
+import sharedStyles from '@/styles/shared/sharedStyles'
 
-import { AuthContext } from '@/providers/GlobalProvider';
-import AUTH_REGEX from '@/regex/auth';
-import { signUp } from '@/services/user/signUp';
-import { validatePassword } from '@/utils/AuthUtils';
+import { AuthContext } from '@/providers/GlobalProvider'
+import AUTH_REGEX from '@/regex/auth'
+import { signUp } from '@/services/user/signUp'
+import { validatePassword } from '@/utils/AuthUtils'
 
 const DEFAULT_FORM_VALUES = {
   email: '',
   fullName: '',
   password: '',
   reEnterPassword: '',
-};
+}
 
 const DEFAULT_ERR_STATE = {
   email: false,
   fullName: false,
   password: false,
   reEnterPassword: false,
-};
+}
 
 const WATCH_FIELDS = [
   {
@@ -52,7 +52,7 @@ const WATCH_FIELDS = [
     fieldName: 'fullName',
     regexPattern: AUTH_REGEX.fullName.regex,
   },
-];
+]
 
 /**
  * Sign up form component that handles user registration.
@@ -64,46 +64,46 @@ const WATCH_FIELDS = [
  * @return {JSX.Element} Returns Sign-Up Form.
  */
 const SignUpForm = (props) => {
-  const { step, setStep, setEmail, handleSwitch } = props;
+  const { step, setStep, setEmail, handleSwitch } = props
 
-  const theme = useTheme();
+  const theme = useTheme()
 
-  const [error, setError] = useState(DEFAULT_ERR_STATE);
-  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(DEFAULT_ERR_STATE)
+  const [loading, setLoading] = useState(false)
 
-  const { handleOpenSnackBar } = useContext(AuthContext);
+  const { handleOpenSnackBar } = useContext(AuthContext)
 
-  const { register, control, fieldStates } = useWatchFields(WATCH_FIELDS);
-  const { email, fullName, password, reEnterPassword } = fieldStates;
+  const { register, control, fieldStates } = useWatchFields(WATCH_FIELDS)
+  const { email, fullName, password, reEnterPassword } = fieldStates
 
-  const passwordMatch = password.value === reEnterPassword.value;
+  const passwordMatch = password.value === reEnterPassword.value
 
   const setReEnterPasswordStatus = () => {
     if (passwordMatch && password.valid && reEnterPassword.valid) {
-      return VALIDATION_STATES.SUCCESS;
+      return VALIDATION_STATES.SUCCESS
     }
 
-    if (password.value === '') return VALIDATION_STATES.DEFAULT;
+    if (password.value === '') return VALIDATION_STATES.DEFAULT
 
-    return VALIDATION_STATES.ERROR;
-  };
+    return VALIDATION_STATES.ERROR
+  }
 
   const submitButtonText = () => {
     if (step === AUTH_STEPS.EMAIL) {
-      return 'Continue';
+      return 'Continue'
     }
-    return 'Sign Up';
-  };
+    return 'Sign Up'
+  }
 
   const handleSubmit = async () => {
-    const isEmailStep = step === AUTH_STEPS.EMAIL;
+    const isEmailStep = step === AUTH_STEPS.EMAIL
 
-    setError(DEFAULT_ERR_STATE);
+    setError(DEFAULT_ERR_STATE)
 
     if (isEmailStep) {
       if (fullName.valid && email.valid) {
-        setStep(AUTH_STEPS.PASSWORD);
-        return;
+        setStep(AUTH_STEPS.PASSWORD)
+        return
       }
 
       if (!fullName.valid && !email.valid) {
@@ -111,55 +111,52 @@ const SignUpForm = (props) => {
           ...error,
           fullName: { message: 'Full name is required' },
           email: { message: 'Email address is required' },
-        });
-        return;
+        })
+        return
       }
 
       if (!fullName.valid) {
         setError({
           ...error,
           fullName: { message: 'Full name is required' },
-        });
-        return;
+        })
+        return
       }
 
       if (!email.valid) {
         setError({
           ...error,
           email: { message: 'Email address is required' },
-        });
-        return;
+        })
+        return
       }
     }
 
     const isPasswordValid = validatePassword(
       { reEnterPassword: reEnterPassword.value, password: password.value },
       setError
-    );
+    )
 
     if (isPasswordValid) {
-      setLoading(true);
+      setLoading(true)
 
       try {
-        await signUp(email.value, password.value, fullName.value);
-        handleOpenSnackBar(
-          ALERT_COLORS.SUCCESS,
-          'Account created successfully'
-        );
+        await signUp(email.value, password.value, fullName.value)
+        handleOpenSnackBar(ALERT_COLORS.SUCCESS, 'Account created successfully')
 
-        setEmail(email.value);
-        handleSwitch();
+        setEmail(email.value)
+        handleSwitch()
       } catch (err) {
-        handleOpenSnackBar(ALERT_COLORS.ERROR, err.message);
+        handleOpenSnackBar(ALERT_COLORS.ERROR, err.message)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     }
-  };
+  }
 
   const renderEmailInput = () => {
     if (step !== AUTH_STEPS.EMAIL) {
-      return null;
+      return null
     }
 
     return (
@@ -179,12 +176,12 @@ const SignUpForm = (props) => {
         ref={register}
         focused
       />
-    );
-  };
+    )
+  }
 
   const renderFullNameInput = () => {
     if (step !== AUTH_STEPS.EMAIL) {
-      return null;
+      return null
     }
 
     return (
@@ -204,11 +201,11 @@ const SignUpForm = (props) => {
         ref={register}
         focused
       />
-    );
-  };
+    )
+  }
 
   const renderPasswordAndConfirmPasswordInputs = () => {
-    if (step === AUTH_STEPS.EMAIL) return null;
+    if (step === AUTH_STEPS.EMAIL) return null
 
     return (
       <>
@@ -247,8 +244,8 @@ const SignUpForm = (props) => {
           focused
         />
       </>
-    );
-  };
+    )
+  }
 
   const renderSubmitButton = () => {
     return (
@@ -260,8 +257,8 @@ const SignUpForm = (props) => {
         text={submitButtonText()}
         {...styles.submitButtonProps}
       />
-    );
-  };
+    )
+  }
 
   return (
     <FormContainer defaultValues={DEFAULT_FORM_VALUES} onSuccess={handleSubmit}>
@@ -272,7 +269,7 @@ const SignUpForm = (props) => {
         {renderSubmitButton()}
       </Grid>
     </FormContainer>
-  );
-};
+  )
+}
 
-export default SignUpForm;
+export default SignUpForm

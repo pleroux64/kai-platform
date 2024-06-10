@@ -40,6 +40,6 @@ const styles = {
     fontSize: '18px',
     color: (theme) => theme.palette.Greyscale[400],
   },
-};
+}
 
-export default styles;
+export default styles

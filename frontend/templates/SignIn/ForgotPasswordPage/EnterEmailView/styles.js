@@ -119,6 +119,6 @@ const styles = {
       lineHeight: 'normal',
     },
   },
-};
+}
 
-export default styles;
+export default styles

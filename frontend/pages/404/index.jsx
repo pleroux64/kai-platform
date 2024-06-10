@@ -1,16 +1,16 @@
-import { Box, Grid, Typography, useTheme } from '@mui/material';
-import { useRouter } from 'next/router';
+import { Box, Grid, Typography, useTheme } from '@mui/material'
+import { useRouter } from 'next/router'
 
-import GradientOutlinedButton from '@/components/GradientOutlinedButton';
-import MainAppLayout from '@/layouts/MainAppLayout';
+import GradientOutlinedButton from '@/components/GradientOutlinedButton'
+import MainAppLayout from '@/layouts/MainAppLayout'
 
-import Planet from '@/assets/svg/planet.svg';
-import Star from '@/assets/svg/Star_3.svg';
-import YellowStar from '@/assets/svg/yellowStar.svg';
+import Planet from '@/assets/svg/planet.svg'
+import Star from '@/assets/svg/Star_3.svg'
+import YellowStar from '@/assets/svg/yellowStar.svg'
 
-import ROUTES from '@/constants/routes';
+import ROUTES from '@/constants/routes'
 
-import pageNotFoundStyles from '@/styles/pageNotFoundStyles';
+import pageNotFoundStyles from '@/styles/pageNotFoundStyles'
 
 /**
  * Renders the page for when the requested route is not found.
@@ -18,12 +18,12 @@ import pageNotFoundStyles from '@/styles/pageNotFoundStyles';
  * @return {JSX.Element} The JSX element representing the page.
  */
 const PageNotFound = () => {
-  const router = useRouter();
-  const theme = useTheme();
+  const router = useRouter()
+  const theme = useTheme()
 
   const handleRouteToHome = () => {
-    router.push(ROUTES.HOME);
-  };
+    router.push(ROUTES.HOME)
+  }
 
   const renderMainTitle = () => {
     return (
@@ -32,8 +32,8 @@ const PageNotFound = () => {
           Lost in the Digital Cosmos? ☄️
         </Typography>
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderBodyText = () => {
     return (
@@ -45,8 +45,8 @@ const PageNotFound = () => {
           continue your tech odyssey.
         </Typography>
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderGoHomeButton = () => {
     return (
@@ -59,16 +59,16 @@ const PageNotFound = () => {
           {...pageNotFoundStyles.submitButtonProps}
         />
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderTopContent = () => {
     return (
       <Grid {...pageNotFoundStyles.sectionGridProps}>
         <Typography {...pageNotFoundStyles.titleProps}>404</Typography>
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderBottomContent = () => {
     return (
@@ -79,8 +79,8 @@ const PageNotFound = () => {
           {renderGoHomeButton()}
         </Grid>
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderRadialBackground = () => {
     return (
@@ -89,8 +89,8 @@ const PageNotFound = () => {
         <Box {...pageNotFoundStyles.radialBg2Props} />
         <Box {...pageNotFoundStyles.radialBg3Props} />
       </>
-    );
-  };
+    )
+  }
 
   const renderIcons = () => {
     return (
@@ -111,8 +111,8 @@ const PageNotFound = () => {
           <Star />
         </Box>
       </>
-    );
-  };
+    )
+  }
 
   return (
     <Grid {...pageNotFoundStyles.mainGridProps}>
@@ -123,11 +123,11 @@ const PageNotFound = () => {
         {renderBottomContent()}
       </Grid>
     </Grid>
-  );
-};
+  )
+}
 
 PageNotFound.getLayout = function getLayout(page) {
-  return <MainAppLayout>{page}</MainAppLayout>;
-};
+  return <MainAppLayout>{page}</MainAppLayout>
+}
 
-export default PageNotFound;
+export default PageNotFound

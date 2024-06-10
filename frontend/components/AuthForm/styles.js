@@ -148,6 +148,6 @@ const styles = {
       fontSize: 'inherit',
     }),
   },
-};
+}
 
-export default styles;
+export default styles
