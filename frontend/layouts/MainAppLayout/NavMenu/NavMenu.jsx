@@ -1,8 +1,11 @@
+import { useEffect, useState } from 'react'
+
 import { Grid, MenuItem } from '@mui/material'
 import { useRouter } from 'next/router'
 
 import Briefcase from '@/assets/svg/Briefcase.svg'
 import ChatBubble from '@/assets/svg/ChatBubble.svg'
+import MenuBook from '@/assets/svg/Menu book.svg'
 
 import ROUTES from '@/constants/routes'
 
@@ -23,6 +26,12 @@ const PAGES = [
     icon: <ChatBubble />,
     id: 'page_2',
   },
+  {
+    name: 'Output History',
+    link: ROUTES.HISTORY,
+    icon: <MenuBook />,
+    id: 'page_3',
+  },
 ]
 
 /**
@@ -33,18 +42,20 @@ const PAGES = [
 const NavMenu = () => {
   const router = useRouter()
   const { pathname } = router
+  const [activeId, setActiveId] = useState('')
 
-  const setActive = (id) => {
-    const isNotHomePage = [chatRegex.test(pathname)].includes(true)
+  useEffect(() => {
+    const setActive = () => {
+      const activePage = PAGES.find((page) => page.link === pathname)
+      setActiveId(activePage ? activePage.id : 'page_1')
+    }
 
-    if (id === 'page_1') return isNotHomePage ? false : homeRegex.test(pathname)
-
-    return chatRegex.test(pathname)
-  }
+    setActive()
+  }, [pathname])
 
   const handleRoute = (link, id) => {
     router.push(link)
-    setActive(id)
+    setActiveId(id)
   }
 
   return (
@@ -53,7 +64,7 @@ const NavMenu = () => {
         <MenuItem
           key={page.id}
           onClick={() => handleRoute(page.link, page.id)}
-          {...styles.menuItemProps(setActive(page.id))}
+          {...styles.menuItemProps(activeId === page.id)}
         >
           <Grid {...styles.innerMenuGridProps}>
             <Grid {...styles.menuIconGridProps}>{page.icon}</Grid>

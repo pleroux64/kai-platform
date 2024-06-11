@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered'
 import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Chip,
+  Divider,
   Grid,
+  Item,
   Paper,
   Table,
   TableBody,
@@ -11,12 +20,9 @@ import {
   TableRow,
   TableSortLabel,
   TextField,
+  Typography,
   useMediaQuery,
 } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
-import { collection, getDocs } from 'firebase/firestore'
-
-import { db } from '../../firebase/firebase' // Correct path
 
 import styles from './styles'
 
@@ -26,116 +32,129 @@ import styles from './styles'
  * @return {ReactElement} The rendered OutputHistoryTable component.
  */
 const OutputHistoryTable = () => {
-  const [outputs, setOutputs] = useState([])
-  const [order, setOrder] = useState('asc')
-  const [orderBy, setOrderBy] = useState('title')
-  const [searchQuery, setSearchQuery] = useState('')
-
+  const [itemWeekCount, setWeekCount] = useState(0)
+  const [itemMonthCount, setMonthCount] = useState(0)
   useEffect(() => {
-    const fetchData = async () => {
-      const querySnapshot = await getDocs(collection(db, 'outputs'))
-      const data = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
-      setOutputs(data)
-    }
+    const weekCount = document.querySelectorAll('.week').length
+    const monthCount = document.querySelectorAll('.month').length
 
-    fetchData()
+    setWeekCount(weekCount)
+    setMonthCount(monthCount)
   }, [])
-
-  const handleSortRequest = (property) => {
-    const isAsc = orderBy === property && order === 'asc'
-    setOrder(isAsc ? 'desc' : 'asc')
-    setOrderBy(property)
-  }
-
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value)
-  }
-
-  const filteredOutputs = outputs.filter((output) =>
-    output.title.toLowerCase().includes(searchQuery.toLowerCase())
-  )
-
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
-
-  const renderSearchInput = () => (
-    <Grid
-      item
-      xs={12}
-      sm={isMobile ? 6 : 12}
-      md={4}
-      style={{ display: 'flex', flexWrap: 'wrap' }}
-    >
-      <TextField
-        variant="outlined"
-        placeholder="Search outputs"
-        onChange={handleSearchChange}
-        {...styles.searchInputProps}
-      />
-    </Grid>
-  )
-
-  const renderTableHeader = () => (
-    <TableHead>
-      <TableRow>
-        <TableCell>
-          <TableSortLabel
-            active={orderBy === 'title'}
-            direction={orderBy === 'title' ? order : 'asc'}
-            onClick={() => handleSortRequest('title')}
-          >
-            Title
-          </TableSortLabel>
-        </TableCell>
-        <TableCell>
-          <TableSortLabel
-            active={orderBy === 'type'}
-            direction={orderBy === 'type' ? order : 'asc'}
-            onClick={() => handleSortRequest('type')}
-          >
-            Type
-          </TableSortLabel>
-        </TableCell>
-        <TableCell>
-          <TableSortLabel
-            active={orderBy === 'creationDate'}
-            direction={orderBy === 'creationDate' ? order : 'asc'}
-            onClick={() => handleSortRequest('creationDate')}
-          >
-            Creation Date
-          </TableSortLabel>
-        </TableCell>
-      </TableRow>
-    </TableHead>
-  )
-
-  const renderTableBody = () => (
-    <TableBody>
-      {filteredOutputs.map((output) => (
-        <TableRow key={output.id}>
-          <TableCell>{output.title}</TableCell>
-          <TableCell>{output.type}</TableCell>
-          <TableCell>{output.creationDate}</TableCell>
-        </TableRow>
-      ))}
-    </TableBody>
-  )
-
   return (
-    <Grid container spacing={2} {...styles.containerProps}>
-      {renderSearchInput()}
-      <Grid item xs={12} sm={isMobile ? 6 : 12} md={4}>
-        <TableContainer component={Paper}>
-          <Table>
-            {renderTableHeader()}
-            {renderTableBody()}
-          </Table>
-        </TableContainer>
+    <>
+      <Grid container direction="column">
+        <Typography {...styles.outputHistory}>Output History</Typography>
+        <Typography {...styles.thisWeek}>
+          This Week ({itemWeekCount})
+        </Typography>
+        <Divider {...styles.divider} />
       </Grid>
-    </Grid>
+      {/* This is the top up to the divider */}
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6} className="week">
+          <Card {...styles.card}>
+            <CardMedia
+              {...styles.cardMedia}
+              component="img"
+              image="https://tse3.mm.bing.net/th?id=OIP.gc6m_EejGd5q1JwA7aMJ5AHaFL&pid=Api&P=0&h=220"
+              alt="Live from space album cover"
+            />
+            {/* This is the end of the card Media */}
+            <Box {...styles.box}>
+              <CardContent {...styles.cardContent}>
+                <Chip label="04/25/24" {...styles.dateChip} />
+                <Typography {...styles.cardHeaders}>
+                  Questions from Youtube - Javascript basics
+                </Typography>
+                <Typography {...styles.cardDescriptions}>
+                  Questions taken from Intro to Javascript video on Youtube.
+                </Typography>
+                <Button {...styles.previewButton}>Preview</Button>
+              </CardContent>
+            </Box>
+          </Card>
+          {/* This is the end of the first card */}
+        </Grid>
+        {/* This is the end of the first grid */}
+        <Grid item xs={12} sm={6} className="week">
+          <Card {...styles.card}>
+            <CardMedia
+              component="img"
+              sx={{ width: 151 }}
+              image="https://tse3.mm.bing.net/th?id=OIP.gc6m_EejGd5q1JwA7aMJ5AHaFL&pid=Api&P=0&h=220"
+              alt="Live from space album cover"
+            />
+            {/* This is the end of the card Media */}
+            <Box {...styles.box}>
+              <CardContent {...styles.cardContent}>
+                <Chip label="04/25/24" {...styles.dateChip} />
+                <Typography {...styles.cardHeaders}>
+                  Questions from Youtube - Javascript basics
+                </Typography>
+                <Typography {...styles.cardDescriptions}>
+                  Questions taken from Intro to Javascript video on Youtube.
+                </Typography>
+                <Button {...styles.previewButton}>Preview</Button>
+              </CardContent>
+            </Box>
+          </Card>
+          {/* This is the end of the first card */}
+        </Grid>
+        {/* This is the end of the first grid */}
+        <Grid item xs={12} sm={6} className="week">
+          <Card {...styles.card}>
+            <CardMedia
+              {...styles.cardMedia}
+              component={FormatListNumberedIcon} // Render the icon component directly
+            />
+            <Box {...styles.box}>
+              <CardContent {...styles.cardContent}>
+                <Chip label="04/25/24" {...styles.dateChip} />
+                <Typography {...styles.cardHeaders}>
+                  Multiple Choice Assessment CSS - Styling
+                </Typography>
+                <Typography {...styles.cardDescriptions}>
+                  Questions taken from Intro to Javascript video on Youtube.
+                </Typography>
+                <Button {...styles.previewButton}>Preview</Button>
+              </CardContent>
+            </Box>
+          </Card>
+          {/* This is the end of the first card */}
+        </Grid>
+        {/* This is the end of the first card */}
+      </Grid>
+      {/* This is the start of the this month section */}
+      <Grid container direction="column">
+        <Typography {...styles.thisWeek}>
+          This Month ({itemMonthCount})
+        </Typography>
+        <Divider {...styles.divider} />
+      </Grid>
+      <Grid item xs={12} sm={6} className="month">
+        <Card {...styles.card}>
+          <CardMedia
+            {...styles.cardMedia}
+            component="img"
+            image="https://tse3.mm.bing.net/th?id=OIP.gc6m_EejGd5q1JwA7aMJ5AHaFL&pid=Api&P=0&h=220"
+            alt="Live from space album cover"
+          />
+          <Box {...styles.box}>
+            <CardContent {...styles.cardContent}>
+              <Chip label="04/26/24" {...styles.validDateChip} />
+              <Typography {...styles.cardHeaders}>
+                Questions from Youtube - Javascript basics
+              </Typography>
+              <Typography {...styles.cardDescriptions}>
+                Questions taken from Intro to Javascript video on Youtube.
+              </Typography>
+              <Button {...styles.previewButton}>Preview</Button>
+            </CardContent>
+          </Box>
+        </Card>
+      </Grid>
+    </>
   )
 }
 
