@@ -36,3 +36,80 @@ const store = configureStore({
 
 export { auth, firestore, functions };
 export default store;
+// src/features/outputs/outputsSlice.js
+
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { firestore } from '../../firebaseConfig';
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  getDocs,
+  doc,
+} from 'firebase/firestore';
+
+// Fetch outputs from Firestore
+export const fetchOutputs = createAsyncThunk('outputs/fetchOutputs', async () => {
+  const snapshot = await getDocs(collection(firestore, 'outputs'));
+  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+});
+
+// Add a new output to Firestore
+export const addOutput = createAsyncThunk('outputs/addOutput', async (output) => {
+  const docRef = await addDoc(collection(firestore, 'outputs'), output);
+  return { id: docRef.id, ...output };
+});
+
+// Update an existing output in Firestore
+export const updateOutput = createAsyncThunk('outputs/updateOutput', async ({ id, updates }) => {
+  const docRef = doc(firestore, 'outputs', id);
+  await updateDoc(docRef, updates);
+  return { id, updates };
+});
+
+// Delete an output from Firestore
+export const deleteOutput = createAsyncThunk('outputs/deleteOutput', async (id) => {
+  const docRef = doc(firestore, 'outputs', id);
+  await deleteDoc(docRef);
+  return id;
+});
+
+const outputsSlice = createSlice({
+  name: 'outputs',
+  initialState: {
+    items: [],
+    status: 'idle',
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchOutputs.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchOutputs.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.items = action.payload;
+      })
+      .addCase(fetchOutputs.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(addOutput.fulfilled, (state, action) => {
+        state.items.push(action.payload);
+      })
+      .addCase(updateOutput.fulfilled, (state, action) => {
+        const { id, updates } = action.payload;
+        const existingOutput = state.items.find((output) => output.id === id);
+        if (existingOutput) {
+          Object.assign(existingOutput, updates);
+        }
+      })
+      .addCase(deleteOutput.fulfilled, (state, action) => {
+        state.items = state.items.filter((output) => output.id !== action.payload);
+      });
+  },
+});
+
+export default outputsSlice.reducer;
