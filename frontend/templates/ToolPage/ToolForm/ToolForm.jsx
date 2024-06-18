@@ -1,24 +1,31 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 
 import { Help } from '@mui/icons-material';
-import { Grid, Tooltip, Typography, useTheme } from '@mui/material';
+import { Grid, Tooltip, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import Image from 'next/image'; // Import the Next.js Image component
 import { FormContainer } from 'react-hook-form-mui';
 import { useDispatch, useSelector } from 'react-redux';
 
 import useWatchFields from '@/hooks/useWatchFields';
 
 import GradientOutlinedButton from '@/components/GradientOutlinedButton';
+
 import PrimaryFileUpload from '@/components/PrimaryFileUpload';
+
 import PrimarySelectorInput from '@/components/PrimarySelectorInput';
+
 import PrimaryTextFieldInput from '@/components/PrimaryTextFieldInput';
 
 import { INPUT_TYPES } from '@/constants/inputs';
+
 import ALERT_COLORS from '@/constants/notification';
 
 import styles from './styles';
 
 import { AuthContext } from '@/providers/GlobalProvider';
+
 import {
   setCommunicatorLoading,
   setFormOpen,
@@ -27,11 +34,48 @@ import {
 } from '@/redux/slices/toolsSlice';
 import submitPrompt from '@/services/tools/submitPrompt';
 
-// Define a mapping for logos based on tool IDs
-const toolLogos = {
-  GEMINI_DYNAMO: '/path/to/flashcard-logo.png', // Replace with actual path
-  GEMINI_QUIZIFY: '/path/to/multiple-choice-logo.png', // Replace with actual path
-  // Add more tool ID mappings as needed
+// Define the toolImg object with configurations for each tool
+const toolImg = {
+  GEMINI_DYNAMO: {
+    backgroundImgURL: '@/public/dynamo-background.png', // Replace with actual path
+    description: 'Creates flash cards from a YouTube video.',
+    id: 'GEMINI_DYNAMO',
+    inputs: [
+      {
+        label: 'YouTube Video URL',
+        name: 'youtube_url',
+        placeholder: 'Paste URL',
+        type: 'text',
+        tooltip: 'Please note that the video should not exceed 10 minutes.',
+      },
+    ],
+    logo: '@/public/flash-cards.png', // Replace with actual path
+    name: 'FlashCards from YouTube',
+  },
+  GEMINI_QUIZIFY: {
+    backgroundImgURL: '@/public/quizify-background.png', // Replace with actual path
+    description:
+      'Create a multiple choice quiz based on any topic, standard(s), and PDF files!',
+    id: 'GEMINI_QUIZIFY',
+    inputs: [
+      {
+        label: 'Topic',
+        name: 'topic',
+        placeholder: 'Enter Topic',
+        type: 'text',
+      },
+      {
+        label: 'Number of Questions',
+        name: 'num_questions',
+        placeholder: 'Enter No. Of Questions',
+        type: 'number',
+      },
+      { label: 'Upload PDF files', name: 'files', type: 'file' },
+    ],
+    logo: '@/public/multiple-choice-logo.png', // Replace with actual path
+    name: 'Multiple Choice Quiz',
+  },
+  // Add more tools as needed
 };
 
 const ToolForm = ({ id, inputs }) => {
@@ -44,9 +88,7 @@ const ToolForm = ({ id, inputs }) => {
   const { register, control, handleSubmit, getValues, setValue, errors } =
     useWatchFields([]);
 
-  // Determine the logo based on tool ID
-  const logoUrl = toolLogos[id] || '/path/to/default-logo.png'; // Use a default logo if no match is found
-
+  // Function to handle form submission
   const handleSubmitMultiForm = async (values) => {
     try {
       const { files, ...toolData } = values;
@@ -77,23 +119,20 @@ const ToolForm = ({ id, inputs }) => {
         const aiResponseData = response.data;
         dispatch(setResponse(aiResponseData));
 
-        // Construct the document to be saved
         const documentData = {
           title: toolData.title || 'Generated Title',
           content: toolData.content || 'Summary of the response',
           questions: aiResponseData, // The detailed AI response
           userId: userData?.id,
           timestamp: new Date(),
-          toolId: id, // The tool ID used to generate this response
-          promptData: updateData, // The user's input data
-          logo: logoUrl, // The selected logo URL
+          toolId: id,
+          promptData: updateData,
+          logo: toolImg[id]?.logo, // Use the logo from toolImg based on the tool ID
         };
 
-        // Save the AI response to the 'outputs' collection
         const db = getFirestore();
         await addDoc(collection(db, 'outputs'), documentData);
 
-        // Close the form and stop the loading indicator
         dispatch(setFormOpen(false));
         dispatch(setCommunicatorLoading(false));
       } else {
@@ -103,9 +142,33 @@ const ToolForm = ({ id, inputs }) => {
       dispatch(setCommunicatorLoading(false));
       handleOpenSnackBar(
         ALERT_COLORS.ERROR,
-        error?.message || 'Couldn\u0027t send prompt'
+        error?.message || 'Could not send prompt'
       );
     }
+  };
+
+  // Function to render the tool icon
+  const renderIcon = () => {
+    const tool = toolImg[id];
+    if (!tool) return null; // Return null if the tool ID is not found
+
+    return (
+      <div
+        style={{
+          backgroundImage: `url(${tool.backgroundImgURL})`,
+          position: 'relative',
+          width: '100%',
+          height: '200px',
+        }}
+      >
+        <Image
+          src={tool.logo}
+          alt={`${tool.name} logo`}
+          layout="fill"
+          objectFit="contain"
+        />
+      </div>
+    );
   };
 
   const renderTextInput = (inputProps) => {
@@ -252,6 +315,8 @@ const ToolForm = ({ id, inputs }) => {
       onSuccess={handleSubmit(handleSubmitMultiForm)}
     >
       <Grid {...styles.formProps}>
+        {/* Render the tool icon */}
+        {renderIcon()}
         <Grid {...styles.mainContentGridProps}>
           {inputs?.map((input) => renderInput(input))}
         </Grid>

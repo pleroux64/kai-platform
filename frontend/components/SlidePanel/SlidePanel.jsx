@@ -1,5 +1,9 @@
 import React from 'react';
 
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+
 import {
   Button,
   Drawer,
@@ -145,20 +149,12 @@ ${panelData.questions
 
   const renderFooterButtons = () => (
     <Grid container justifyContent="flex-start" sx={{ mt: 3, width: '100%' }}>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleCopyToClipboard}
-        sx={{ marginRight: '8px', marginLeft: '8px' }}
-      >
+      <Button onClick={handleCopyToClipboard} {...styles.copyButton}>
+        <ContentCopyIcon {...styles.CopyIcon} />
         Copy
       </Button>
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={handleExportToCSV}
-        sx={{ marginRight: '8px' }}
-      >
+      <Button onClick={handleExportToCSV} {...styles.exportButton}>
+        <FileDownloadIcon {...styles.downloadIcon} />
         Export
       </Button>
     </Grid>
