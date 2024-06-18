@@ -29,9 +29,57 @@ import submitPrompt from '@/services/tools/submitPrompt';
 
 // Define a mapping for logos based on tool IDs
 const toolLogos = {
-  GEMINI_DYNAMO: '/path/to/flashcard-logo.png', // Replace with actual path
+  GEMINI_DYNAMO: '@/public/flash-cards.png', // Replace with actual path
   GEMINI_QUIZIFY: '/path/to/multiple-choice-logo.png', // Replace with actual path
   // Add more tool ID mappings as needed
+};
+
+const toolImg = {
+  '0': {
+    backgroundImgURL:
+      'https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/Quizify.png?alt=media&token=d1255f27-b1a1-444e-b96a-4a3ac559237d',
+    description:
+      'Create a multiple choice quiz based on any topic, standard(s), and pdf files!',
+    id: '0',
+    inputs: [
+      {
+        label: 'Topic',
+        name: 'topic',
+        placeholder: 'Enter Topic',
+        type: 'text',
+      },
+      {
+        label: 'Number of Questions',
+        name: 'num_questions',
+        placeholder: 'Enter No. Of Questions',
+        type: 'number',
+      },
+      {
+        label: 'Upload PDF files',
+        name: 'files',
+        type: 'file',
+      },
+    ],
+    logo: 'https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/QuizifyLogo.png?alt=media&token=9bf1d066-fba4-4063-9640-ef732e237d31',
+    name: 'Multiple Choice Quiz',
+  },
+  '1': {
+    backgroundImgURL:
+      'https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/Dynamo.png?alt=media&token=db14183f-a294-49b2-a9de-0818b007c080',
+    description: 'Creates flash cards from a youtube video.',
+    id: '1',
+    inputs: [
+      {
+        label: 'Youtube Video URL',
+        name: 'youtube_url',
+        placeholder: 'Paste URL',
+        type: 'text',
+        tooltip: 'Please note that the video should not exceed 10 minutes.',
+      },
+    ],
+    logo: 'https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/YoutubeLogo.png?alt=media&token=2809083f-f816-41b6-8f86-80582b3da188',
+    name: 'FlashCards from Youtube',
+  },
 };
 
 const ToolForm = ({ id, inputs }) => {
@@ -106,6 +154,23 @@ const ToolForm = ({ id, inputs }) => {
         error?.message || 'Couldn\u0027t send prompt'
       );
     }
+  };
+
+  const renderIcon = () => {
+    if (id === 'Quizify') {
+      const { backgroundImgURL } = toolImg[0].backgroundImgURL;
+      return (
+        <div style={{ backgroundImage: `url(${backgroundImgURL})` }}>
+          <img src={toolImg[0].logo} />
+        </div>
+      );
+    }
+    const { backgroundImgURL } = toolImg[1].backgroundImgURL;
+    return (
+      <div style={{ backgroundImage: `url(${backgroundImgURL})` }}>
+        <img src={toolImg[1].logo} />
+      </div>
+    );
   };
 
   const renderTextInput = (inputProps) => {
