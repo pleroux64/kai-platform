@@ -1,4 +1,4 @@
-export function categorizeDate(creationDate, currentDate) {
+function categorizeDate(creationDate, currentDate) {
   // Remove time part from dates for comparison
   const todayDateOnly = new Date(
     currentDate.getFullYear(),
@@ -47,4 +47,20 @@ export function categorizeDate(creationDate, currentDate) {
     return 'Year';
   }
   return 'Older';
+}
+
+export function categorizeDataByDate(data) {
+  const newHistoryOutput = {
+    Week: [],
+    Month: [],
+    Year: [],
+    Older: [],
+  };
+
+  data.forEach((item) => {
+    const category = categorizeDate(item.creationDate.toDate(), new Date());
+    newHistoryOutput[category].push(item);
+  });
+
+  return newHistoryOutput;
 }

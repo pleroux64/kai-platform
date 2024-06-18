@@ -9,7 +9,7 @@ import SlidePanel from '../SlidePanel/SlidePanel';
 import styles from './styles';
 
 import { fetchOutputHistory } from '@/redux/thunks/output';
-import { categorizeDate } from '@/utils/DateUtils';
+import { categorizeDataByDate } from '@/utils/DateUtils';
 
 const OutputHistoryListContainer = () => {
   const dispatch = useDispatch();
@@ -30,17 +30,7 @@ const OutputHistoryListContainer = () => {
 
   useEffect(() => {
     if (data && data.length > 0) {
-      const newHistoryOutput = {
-        Week: [],
-        Month: [],
-        Year: [],
-        Older: [],
-      };
-
-      data.forEach((item) => {
-        const category = categorizeDate(item.creationDate.toDate(), new Date());
-        newHistoryOutput[category].push(item);
-      });
+      const newHistoryOutput = categorizeDataByDate(data);
 
       setHistoryOutput(newHistoryOutput);
     } else {
