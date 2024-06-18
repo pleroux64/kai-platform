@@ -43,7 +43,7 @@ const OutputHistoryCard = (props) => {
 
   return (
     <Grid {...styles.mainGridProps}>
-      <Card {...styles.cardProps}>
+      <Card {...styles.cardProps} elevation={3}>
         <Grid {...styles.toolDetailsGridProps}>
           {renderImage()}
           {renderTitle()}
