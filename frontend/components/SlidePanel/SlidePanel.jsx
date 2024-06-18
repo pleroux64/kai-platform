@@ -150,7 +150,7 @@ ${panelData.questions
   const renderFooterButtons = () => (
     <Grid container justifyContent="flex-start" sx={{ mt: 3, width: '100%' }}>
       <Button onClick={handleCopyToClipboard} {...styles.copyButton}>
-        <ContentCopyIcon {...styles.copyIcon} />
+        <ContentCopyIcon {...styles.CopyIcon} />
         Copy
       </Button>
       <Button onClick={handleExportToCSV} {...styles.exportButton}>

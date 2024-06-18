@@ -99,7 +99,7 @@ const styles = {
       width: '120px',
     },
   },
-  copyIcon: {
+  CopyIcon: {
     sx: {
       marginRight: '8px',
     },
