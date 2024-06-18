@@ -81,7 +81,7 @@ const ToolForm = ({ id, inputs }) => {
         const documentData = {
           title: toolData.title || 'Generated Title',
           content: toolData.content || 'Summary of the response',
-          response: aiResponseData, // The detailed AI response
+          questions: aiResponseData, // The detailed AI response
           userId: userData?.id,
           timestamp: new Date(),
           toolId: id, // The tool ID used to generate this response
