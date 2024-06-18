@@ -79,6 +79,36 @@ const styles = {
     alignSelf: 'flex-start', // Align to the left
     fontWeight: 'bold', // Make the text bold
   },
+  copyButton: {
+    sx: {
+      backgroundColor: '#EAE5F3',
+      color: '#742696',
+      borderRadius: '30px',
+      marginRight: '8px',
+      marginLeft: '8px',
+      width: '120px',
+    },
+  },
+  exportButton: {
+    sx: {
+      backgroundColor: '#EAE5F3',
+      color: '#742696',
+      borderRadius: '30px',
+      marginLeft: '8px',
+      marginRight: '8px',
+      width: '120px',
+    },
+  },
+  copyIcon: {
+    sx: {
+      marginRight: '8px',
+    },
+  },
+  downloadIcon: {
+    sx: {
+      marginRight: '8px',
+    },
+  },
 };
 
 export default styles;
