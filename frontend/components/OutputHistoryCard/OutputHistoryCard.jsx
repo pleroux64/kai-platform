@@ -1,27 +1,38 @@
+// OutputHistoryCard.js
+
 import { Button, Card, Grid, Typography } from '@mui/material';
 import Image from 'next/image';
 
-import ToolImage from '@/assets/images/BookImage.png'; // Replace this with a default image if needed
+import ToolImage from '@/assets/images/BookImage.png'; // Default image
 
 import styles from './styles';
 
-/**
- * Returns an Output History Card component with an image and a chip displaying the amount of coins.
- *
- * @return {JSX.Element} The Output History Card component.
- */
 const OutputHistoryCard = (props) => {
-  const { title, content, creationDate, logo, onOpen } = props;
+  const { title, content, creationDate, backgroundImageUrl, logo, onOpen } =
+    props;
 
   const handleButtonClick = () => {
-    onOpen(props); // Pass the card's props to the onOpen handler
+    onOpen(); // Call onOpen without passing additional props
   };
 
-  const renderImage = () => {
-    // Use the modified styles with a static blue background
+  const renderBackgroundImage = () => {
     return (
-      <Grid {...styles.imageGridProps()}>
-        <Image src={logo || ToolImage} alt="kai logo" {...styles.imageProps} />
+      <Grid {...styles.backgroundImageGridProps}>
+        <Image
+          src={backgroundImageUrl || ToolImage}
+          alt="tool background"
+          layout="fill"
+          objectFit="cover"
+        />
+      </Grid>
+    );
+  };
+
+  const renderLogo = () => {
+    if (!logo) return null;
+    return (
+      <Grid {...styles.logoGridProps}>
+        <Image src={logo} alt="tool logo" {...styles.logoImageProps} />
       </Grid>
     );
   };
@@ -29,9 +40,7 @@ const OutputHistoryCard = (props) => {
   const renderTitle = () => {
     return (
       <Grid {...styles.contentGridProps}>
-        <Typography {...styles.dateProps}>
-          {new Date(creationDate.seconds * 1000).toLocaleDateString()}
-        </Typography>
+        <Typography {...styles.dateProps}>{creationDate}</Typography>
         <Typography {...styles.titleProps}>{title}</Typography>
         <Typography {...styles.descriptionProps}>{content}</Typography>
         <Button {...styles.previewButtonProps} onClick={handleButtonClick}>
@@ -44,8 +53,9 @@ const OutputHistoryCard = (props) => {
   return (
     <Grid {...styles.mainGridProps}>
       <Card {...styles.cardProps} elevation={6}>
-        <Grid {...styles.toolDetailsGridProps}>
-          {renderImage()}
+        <Grid {...styles.cardContentGridProps}>
+          {renderBackgroundImage()}
+          {renderLogo()}
           {renderTitle()}
         </Grid>
       </Card>

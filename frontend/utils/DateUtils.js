@@ -58,7 +58,7 @@ export function categorizeDataByDate(data) {
   };
 
   data.forEach((item) => {
-    const category = categorizeDate(item.creationDate.toDate(), new Date());
+    const category = categorizeDate(item.createdAt.toDate(), new Date());
     newHistoryOutput[category].push(item);
   });
 

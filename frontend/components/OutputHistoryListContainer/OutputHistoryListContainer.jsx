@@ -1,3 +1,5 @@
+// OutputHistoryListContainer.js
+
 import React, { useState } from 'react';
 
 import { Grid, Typography } from '@mui/material';
@@ -6,6 +8,8 @@ import OutputHistoryCard from '../OutputHistoryCard';
 import SlidePanel from '../SlidePanel/SlidePanel';
 
 import styles from './styles';
+
+import { transformToolData } from '@/utils/HistoryUtils';
 
 const OutputHistoryListContainer = ({ data, loading }) => {
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
@@ -34,13 +38,29 @@ const OutputHistoryListContainer = ({ data, loading }) => {
   const renderCards = ({ category }) => (
     <Grid {...styles.containerGridProps}>
       <Grid {...styles.innerListGridProps}>
-        {data?.[category].map((item) => (
-          <OutputHistoryCard
-            key={item.id}
-            {...item}
-            onOpen={handleOpenSidebar}
-          />
-        ))}
+        {data?.[category].map((item) => {
+          const transformedData = transformToolData(
+            item.tool_data,
+            item.response,
+            item.createdAt
+          );
+
+          // Pass only relevant props to OutputHistoryCard
+          const { title, content, backgroundImageUrl, logo, creationDate } =
+            transformedData;
+
+          return (
+            <OutputHistoryCard
+              key={item.id}
+              title={title}
+              content={content}
+              backgroundImageUrl={backgroundImageUrl}
+              logo={logo}
+              creationDate={creationDate}
+              onOpen={() => handleOpenSidebar(transformedData)} // Pass full transformed data to SlidePanel
+            />
+          );
+        })}
       </Grid>
     </Grid>
   );
@@ -70,7 +90,7 @@ const OutputHistoryListContainer = ({ data, loading }) => {
       <SlidePanel
         isOpen={isSidePanelOpen}
         onClose={handleCloseSidebar}
-        data={selectedCardData}
+        data={selectedCardData} // Pass transformed data to SlidePanel
       />
     </>
   );
