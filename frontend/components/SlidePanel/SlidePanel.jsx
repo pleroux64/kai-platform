@@ -13,6 +13,9 @@ import {
 
 import styles from './styles';
 
+import { copyToClipboard } from '@/utils/ClipboardUtils'; // to be used below
+import { exportToCSV } from '@/utils/CsvUtils'; // to be used below
+
 const SlidePanel = (props) => {
   const { isOpen, onClose, data } = props;
 

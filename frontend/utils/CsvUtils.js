@@ -1,0 +1,54 @@
+// csvUtils.js
+export const exportToCSV = (data, panelData) => {
+  const escapeCSVField = (field) => {
+    if (typeof field === 'string') {
+      return `"${field.replace(/"/g, '""')}"`;
+    }
+    return field;
+  };
+
+  let headers;
+  let rows;
+
+  if (data?.toolId === '0') {
+    // MCQ
+    headers = [
+      'Question',
+      'Option A',
+      'Option B',
+      'Option C',
+      'Option D',
+      'Correct Answer',
+      'Explanation',
+    ];
+    rows = panelData.map((item) => [
+      escapeCSVField(item.question),
+      escapeCSVField(item.choices[0]?.value || ''),
+      escapeCSVField(item.choices[1]?.value || ''),
+      escapeCSVField(item.choices[2]?.value || ''),
+      escapeCSVField(item.choices[3]?.value || ''),
+      escapeCSVField(item.answer),
+      escapeCSVField(item.explanation || ''),
+    ]);
+  } else {
+    // Flash Cards
+    headers = ['Concept', 'Definition'];
+    rows = panelData.map((item) => [
+      escapeCSVField(item.concept),
+      escapeCSVField(item.definition),
+    ]);
+  }
+
+  const csvContent = [headers.join(','), ...rows.map((e) => e.join(','))].join(
+    '\n'
+  );
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${data?.title.replace(/\s+/g, '_').toLowerCase()}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  window.URL.revokeObjectURL(url);
+  document.body.removeChild(a);
+};
