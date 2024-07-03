@@ -1,4 +1,3 @@
-// clipboardUtils.js
 export const copyToClipboard = (data, panelData) => {
   const label =
     data?.toolId === '0' ? 'Questions and Options' : 'Concepts and Definitions';

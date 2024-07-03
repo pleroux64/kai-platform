@@ -1,4 +1,3 @@
-// csvUtils.js
 export const exportToCSV = (data, panelData) => {
   const escapeCSVField = (field) => {
     if (typeof field === 'string') {
