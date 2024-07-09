@@ -1,12 +1,12 @@
 {
   "projects": {
-    "default": "kai-ai-f63c8"
+    "default": "kai-notificationsv2"
   },
   "targets": {
-    "kai-ai-f63c8": {
+    "kai-notificationsv2": {
       "hosting": {
         "next": [
-          "kai-ai-f63c8"
+          "kai-notificationsv2"
         ]
       }
     }
