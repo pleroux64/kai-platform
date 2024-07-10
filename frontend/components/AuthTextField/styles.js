@@ -54,6 +54,16 @@ const styles = {
       bgcolor: (theme) => theme.palette.Greyscale[100],
     },
   },
+  errorMessage: (error, state) => ({
+    error,
+    color: 'rgba(244, 67, 54, 1)',
+    marginLeft: '.5rem',
+    marginTop: '.5rem',
+    fontSize: { laptop: '16px', desktopMedium: '18px' },
+  }),
+  textFeildDiv: {
+    width: '100%',
+  },
 };
 
 export default styles;

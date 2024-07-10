@@ -71,18 +71,25 @@ const AuthTextField = forwardRef((props, ref) => {
     ),
     InputLabelProps: styles.inputLabelProps(error, state),
     fullWidth: true,
-    label: helperText || label,
+    label,
     autoComplete: 'off',
     placeholder: placeholderText,
     FormHelperTextProps: { error },
   };
 
+  const errorMessage = () => {
+    return <p style={styles.errorMessage(state)}>{helperText}</p>;
+  };
+
   return (
-    <TextFieldElement
-      inputRef={ref}
-      {...TextFieldElementConfig}
-      {...otherProps}
-    />
+    <div style={styles.textFeildDiv}>
+      <TextFieldElement
+        inputRef={ref}
+        {...TextFieldElementConfig}
+        {...otherProps}
+      />
+      {error && errorMessage()}
+    </div>
   );
 });
 
