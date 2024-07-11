@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react'
 
-import { Grid, useTheme } from '@mui/material'
+import ErrorIcon from '@mui/icons-material/Error'
+import { Grid, Typography, useTheme } from '@mui/material'
 import { FormContainer } from 'react-hook-form-mui'
 
 import useWatchFields from '@/hooks/useWatchFields'
@@ -160,22 +161,28 @@ const SignUpForm = (props) => {
     }
 
     return (
-      <AuthTextField
-        id="email"
-        name="email"
-        label="Email Address"
-        placeholderText="Email address"
-        error={!!error.email}
-        helperText={
-          !email.valid && email.value
-            ? AUTH_REGEX.email.message
-            : error.email?.message
-        }
-        state={email.status}
-        control={control}
-        ref={register}
-        focused
-      />
+      <Grid {...styles.formGridProps}>
+        <AuthTextField
+          id="email"
+          name="email"
+          label="Email Address"
+          placeholderText="Email address"
+          error={!!error.email}
+          helperText={
+            !email.valid && email.value ? 'Email Address' : error.email?.message
+          }
+          state={email.status}
+          control={control}
+          ref={register}
+          focused
+        />
+        <Grid {...styles.errorGridProps}>
+          <ErrorIcon {...styles.errorIconProps(email)} />
+          <Typography {...styles.errorTypographyProps(email)}>
+            {AUTH_REGEX.email.message}
+          </Typography>
+        </Grid>
+      </Grid>
     )
   }
 
@@ -185,22 +192,30 @@ const SignUpForm = (props) => {
     }
 
     return (
-      <AuthTextField
-        id="fullName"
-        name="fullName"
-        label="Full Name"
-        placeholderText="Full name"
-        error={!!error.fullName}
-        helperText={
-          !fullName.valid && fullName.value
-            ? AUTH_REGEX.fullName.message
-            : error.fullName?.message
-        }
-        state={fullName.status}
-        control={control}
-        ref={register}
-        focused
-      />
+      <Grid {...styles.formGridProps}>
+        <AuthTextField
+          id="fullName"
+          name="fullName"
+          label="Full Name"
+          placeholderText="Full name"
+          error={!!error.fullName}
+          helperText={
+            !fullName.valid && fullName.value
+              ? 'Full Name'
+              : error.fullName?.message
+          }
+          state={fullName.status}
+          control={control}
+          ref={register}
+          focused
+        />
+        <Grid {...styles.errorGridProps}>
+          <ErrorIcon {...styles.errorIconProps(fullName)} />
+          <Typography {...styles.errorTypographyProps(fullName)}>
+            {AUTH_REGEX.fullName.message}
+          </Typography>
+        </Grid>
+      </Grid>
     )
   }
 
