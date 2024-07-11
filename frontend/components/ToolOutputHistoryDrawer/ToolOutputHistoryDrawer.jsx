@@ -1,42 +1,27 @@
 import { ContentCopy, FileDownload } from '@mui/icons-material';
-import {
-  Button,
-  Drawer,
-  Grid,
-  List,
-  ListItem,
-  Typography,
-} from '@mui/material';
+import { Button, Drawer, Grid, Typography } from '@mui/material';
 import moment from 'moment';
 
 import styles from './styles';
 
-import { copyToClipboard } from '@/services/history/copy';
-import { exportToCSV } from '@/services/history/export';
+import { copyToClipboard } from '@/services/toolHistory/copy';
+import { exportToCSV } from '@/services/toolHistory/export';
 
-const DEFAULT_DATA = {
-  title: 'Default Title',
-  content: 'Default Content',
-  creationDate: moment().toDate().toLocaleDateString(),
-  questions: [
-    {
-      question: 'Default Question 1',
-      options: ['Option A', 'Option B', 'Option C', 'Option D'],
-    },
-  ],
-};
-
+/**
+ * Renders a drawer component for displaying tool output history.
+ *
+ * @param {Object} props - The props object containing isOpen, onClose, data, and Component.
+ * @returns {JSX.Element} A Drawer component with header, content, and footer buttons.
+ */
 const ToolOutputHistoryDrawer = (props) => {
-  const { isOpen, onClose, data } = props;
-
-  const panelData = data?.response || DEFAULT_DATA.questions;
+  const { isOpen, onClose, data, Component } = props;
 
   const handleCopyToClipboard = () => {
-    copyToClipboard(data, panelData);
+    copyToClipboard(data, data?.response || []);
   };
 
   const handleExportToCSV = () => {
-    exportToCSV(data, panelData);
+    exportToCSV(data, data?.response || []);
   };
 
   const renderHeader = () => (
@@ -59,55 +44,11 @@ const ToolOutputHistoryDrawer = (props) => {
     </Grid>
   );
 
-  const renderQuestions = () =>
-    panelData.map((item, index) => (
-      <Grid key={index} sx={{ marginBottom: '16px' }}>
-        <Typography {...styles.questionProps}>
-          {index + 1}. {item?.question}
-        </Typography>
-        <List>
-          {item?.choices?.map((choice, choiceIndex) => (
-            <ListItem key={choiceIndex} sx={{ py: 0 }}>
-              <Typography {...styles.optionProps}>
-                {choice.key}. {choice.value}
-              </Typography>
-            </ListItem>
-          ))}
-        </List>
-        <Typography {...styles.answerProps} sx={{ marginTop: '8px' }}>
-          <strong>Correct Answer:</strong> {item.answer}
-        </Typography>
-        {item.explanation && (
-          <Typography {...styles.explanationProps} sx={{ marginTop: '4px' }}>
-            <strong>Explanation:</strong> {item.explanation}
-          </Typography>
-        )}
-      </Grid>
-    )) || null;
-
-  const renderFlashCards = () => (
-    <Grid {...styles.flashCardsGridProps}>
-      {panelData?.map((item, index) => (
-        <Grid key={index} {...styles.flashCardGridProps}>
-          <Typography {...styles.conceptTitleProps}>{item?.concept}</Typography>
-          <Typography {...styles.definitionProps}>
-            {item?.definition}
-          </Typography>
-        </Grid>
-      ))}
+  const renderContent = () => (
+    <Grid {...styles.containerGridProps}>
+      {Component && <Component data={data} />}
     </Grid>
   );
-
-  const TOOL_COMPONENTS = {
-    '1': renderFlashCards,
-    '0': renderQuestions,
-  };
-
-  const renderContent = () => {
-    const renderToolComponent =
-      TOOL_COMPONENTS[data?.toolId] || renderQuestions;
-    return <Grid {...styles.containerGridProps}>{renderToolComponent()}</Grid>;
-  };
 
   const renderFooterButtons = () => (
     <Grid container justifyContent="flex-start" sx={{ mt: 3, width: '100%' }}>

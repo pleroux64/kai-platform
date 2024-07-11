@@ -7,7 +7,8 @@ import ToolOutputHistoryDrawer from '../ToolOutputHistoryDrawer/ToolOutputHistor
 
 import styles from './styles';
 
-import { transformToolData } from '@/services/history/transformToolData';
+import { getLiveToolData } from '@/services/toolHistory/toolFactory';
+import { transformToolData } from '@/services/toolHistory/transformToolData';
 
 const LOADER_HISTS = new Array(4).fill().map((_, index) => ({ id: index + 1 }));
 
@@ -22,6 +23,7 @@ const LOADER_HISTS = new Array(4).fill().map((_, index) => ({ id: index + 1 }));
 const ToolHistoryListingContainer = ({ data, loading }) => {
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
   const [selectedCardData, setSelectedCardData] = useState(null);
+  const [SelectedComponent, setSelectedComponent] = useState(null);
 
   const renderLoader = () => (
     <Grid {...styles.containerGridProps}>
@@ -36,7 +38,9 @@ const ToolHistoryListingContainer = ({ data, loading }) => {
   if (loading) return renderLoader();
 
   const handleOpenSidebar = (cardData) => {
+    const { Component } = getLiveToolData(cardData);
     setSelectedCardData(cardData);
+    setSelectedComponent(() => Component); // Use a function to set the component
     setIsSidePanelOpen(true);
   };
 
@@ -143,6 +147,7 @@ const ToolHistoryListingContainer = ({ data, loading }) => {
         isOpen={isSidePanelOpen}
         onClose={handleCloseSidebar}
         data={selectedCardData}
+        Component={SelectedComponent}
       />
     </>
   );
