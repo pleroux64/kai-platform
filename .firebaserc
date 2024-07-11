@@ -1,12 +1,12 @@
 {
   "projects": {
-    "default": "test4-2a3ef"
+    "default": "kai-notificationsv2"
   },
   "targets": {
     "test4-2a3ef": {
       "hosting": {
         "next": [
-          "test4-2a3ef"
+          "kai-notificationsv2"
         ]
       }
     }

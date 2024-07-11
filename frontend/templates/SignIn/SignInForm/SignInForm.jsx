@@ -111,7 +111,10 @@ const SignInForm = (props) => {
           setError({ email: { message: AUTH_ERROR_MESSAGES[code] } });
           break;
         default:
-          setError({ email: { message: AUTH_ERROR_MESSAGES[code] } });
+          setError({
+            password: { message: AUTH_ERROR_MESSAGES[code] },
+            email: { message: AUTH_ERROR_MESSAGES[code] },
+          });
       }
     } finally {
       setSignInLoading(false);

@@ -2,6 +2,7 @@ import { forwardRef, useState } from 'react';
 
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { IconButton, InputAdornment } from '@mui/material';
+import Alert from '@mui/material/Alert';
 import { TextFieldElement } from 'react-hook-form-mui';
 
 import styles from './styles';
@@ -78,7 +79,15 @@ const AuthTextField = forwardRef((props, ref) => {
   };
 
   const errorMessage = () => {
-    return <p style={styles.errorMessage(state)}>{helperText}</p>;
+    return (
+      <Alert
+        severity="error"
+        variant="outlined"
+        style={styles.errorMessage(error)}
+      >
+        {helperText}
+      </Alert>
+    );
   };
 
   return (
