@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 
-import { Grid, useTheme } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
+import { Grid, Typography, useTheme } from '@mui/material';
 import { FormContainer } from 'react-hook-form-mui';
 
 import useWatchFields from '@/hooks/useWatchFields';
@@ -77,6 +78,9 @@ const SignUpForm = (props) => {
   const { email, fullName, password, reEnterPassword } = fieldStates;
 
   const passwordMatch = password.value === reEnterPassword.value;
+
+  let helperText = 'Email Address'; // Default helper text is the label
+  let infoText = null; // Initially no info text
 
   const setReEnterPasswordStatus = () => {
     if (passwordMatch && password.valid && reEnterPassword.valid) {
@@ -162,23 +166,38 @@ const SignUpForm = (props) => {
       return null;
     }
 
+    if (!email.valid && email.value) {
+      helperText = ''; // Clear helper text when invalid to make room for info icon
+      infoText = 'Invalid Email Address'; // Display info text when email is invalid
+    }
+
     return (
-      <AuthTextField
-        id="email"
-        name="email"
-        label="Email Address"
-        placeholderText="Email address"
-        error={!!error.email}
-        helperText={
-          !email.valid && email.value
-            ? AUTH_REGEX.email.message
-            : error.email?.message
-        }
-        state={email.status}
-        control={control}
-        ref={register}
-        focused
-      />
+      <>
+        <AuthTextField
+          id="email"
+          name="email"
+          label="Email Address"
+          placeholderText="Email address"
+          error={!!error.email}
+          helperText={helperText}
+          state={email.status}
+          control={control}
+          ref={register}
+          focused
+        />
+        {infoText && (
+          <Grid container alignItems="center" spacing={1} marginTop={-5}>
+            <Grid item>
+              <InfoIcon color="error" />
+            </Grid>
+            <Grid item>
+              <Typography variant="body2" color="error" fontSize="small">
+                {infoText}
+              </Typography>
+            </Grid>
+          </Grid>
+        )}
+      </>
     );
   };
 
