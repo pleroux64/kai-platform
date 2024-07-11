@@ -1,10 +1,9 @@
-import React from 'react';
-
 import { Grid, List, ListItem, Typography } from '@mui/material';
 
 import styles from '../styles';
 
-const MultipleChoiceQuiz = ({ data }) => {
+export const renderMultipleChoiceQuiz = (data) => {
+  console.log('Rendering MultipleChoiceQuiz with data:', data);
   const panelData = data?.response || [];
 
   return (
@@ -37,4 +36,4 @@ const MultipleChoiceQuiz = ({ data }) => {
   );
 };
 
-export default MultipleChoiceQuiz;
+export default renderMultipleChoiceQuiz;

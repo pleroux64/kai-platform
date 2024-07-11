@@ -4,6 +4,6 @@ export const TOOL_IDS = {
 };
 
 export const TOOL_NAMES = {
-  [TOOL_IDS.FLASHCARDS]: 'FlashCards',
-  [TOOL_IDS.MCQ]: 'MutlipleChoiceQuiz',
+  [TOOL_IDS.FLASHCARDS]: 'Flashcards',
+  [TOOL_IDS.MCQ]: 'MultipleChoiceQuiz',
 };

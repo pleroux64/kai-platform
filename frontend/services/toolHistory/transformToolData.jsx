@@ -9,9 +9,14 @@ import { TOOL_IDS } from '@/constants/tool_IDs';
  */
 export const transformToolData = (toolData) => {
   const { tool_id, topic, response, title, content, createdAt } = toolData;
-  const transformedDate = moment(createdAt.seconds * 1000)
-    .toDate()
-    .toLocaleDateString();
+
+  console.log('Incoming tool data:', toolData);
+
+  const transformedDate = createdAt?.seconds
+    ? moment(createdAt.seconds * 1000)
+        .toDate()
+        .toLocaleDateString()
+    : 'Unknown Date';
 
   const TOOL_OUTPUT_DETAILS = {
     [TOOL_IDS.FLASHCARDS]: {
@@ -54,16 +59,25 @@ export const transformToolData = (toolData) => {
     backgroundImageUrl:
       'https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/Dynamo.png?alt=media&token=db14183f-a294-49b2-a9de-0818b007c080',
     logo: 'https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/YoutubeLogo.png?alt=media&token=2809083f-f816-41b6-8f86-80582b3da188',
-    title: 'Unknown Tool Usage',
-    description: 'This tool usage is not defined.',
+    getTitle: () => 'Unknown Tool Usage',
+    getDescription: () => 'This tool usage is not defined.',
   };
 
   const toolDetails = TOOL_OUTPUT_DETAILS[tool_id] || defaultDetails;
+
+  console.log('Transformed tool data:', {
+    ...toolDetails,
+    creationDate: transformedDate,
+    title: toolDetails.getTitle(),
+    description: toolDetails.getDescription(),
+    response,
+  });
 
   return {
     ...toolDetails,
     creationDate: transformedDate,
     title: toolDetails.getTitle(),
     description: toolDetails.getDescription(),
+    response,
   };
 };

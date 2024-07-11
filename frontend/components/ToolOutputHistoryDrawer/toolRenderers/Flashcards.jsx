@@ -1,10 +1,9 @@
-import React from 'react';
-
 import { Grid, Typography } from '@mui/material';
 
 import styles from '../styles';
 
-const FlashCards = ({ data }) => {
+export const renderFlashcards = (data) => {
+  console.log('Rendering FlashCards with data:', data);
   const panelData = data?.response || [];
 
   return (
@@ -21,4 +20,4 @@ const FlashCards = ({ data }) => {
   );
 };
 
-export default FlashCards;
+export default renderFlashcards;

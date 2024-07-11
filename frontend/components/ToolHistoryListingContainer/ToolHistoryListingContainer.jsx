@@ -8,22 +8,13 @@ import ToolOutputHistoryDrawer from '../ToolOutputHistoryDrawer/ToolOutputHistor
 import styles from './styles';
 
 import { getLiveToolData } from '@/services/toolHistory/toolFactory';
-import { transformToolData } from '@/services/toolHistory/transformToolData';
 
 const LOADER_HISTS = new Array(4).fill().map((_, index) => ({ id: index + 1 }));
 
-/**
- * Renders the Tool History Listing Container component.
- *
- * @param {object} props - The props object.
- * @param {Array} props.data - The data to be displayed in the container.
- * @param {boolean} props.loading - The loading state.
- * @returns {JSX.Element} The rendered Tool History Listing Container component.
- */
 const ToolHistoryListingContainer = ({ data, loading }) => {
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
   const [selectedCardData, setSelectedCardData] = useState(null);
-  const [SelectedComponent, setSelectedComponent] = useState(null);
+  const [selectedRenderer, setSelectedRenderer] = useState(null);
 
   const renderLoader = () => (
     <Grid {...styles.containerGridProps}>
@@ -38,9 +29,11 @@ const ToolHistoryListingContainer = ({ data, loading }) => {
   if (loading) return renderLoader();
 
   const handleOpenSidebar = (cardData) => {
-    const { Component } = getLiveToolData(cardData);
+    const { transformedData, toolRenderer } = getLiveToolData(cardData);
+    console.log('Opening sidebar with transformed data:', transformedData);
+    console.log('Renderer from getLiveToolData:', toolRenderer);
     setSelectedCardData(cardData);
-    setSelectedComponent(() => Component); // Use a function to set the component
+    setSelectedRenderer(() => toolRenderer);
     setIsSidePanelOpen(true);
   };
 
@@ -60,7 +53,7 @@ const ToolHistoryListingContainer = ({ data, loading }) => {
     <Grid {...styles.containerGridProps}>
       <Grid {...styles.innerListGridProps}>
         {data?.[category].map((item) => {
-          const transformedData = transformToolData(item);
+          const { transformedData, toolRenderer } = getLiveToolData(item);
 
           const { title, content, backgroundImageUrl, logo, creationDate } =
             transformedData;
@@ -147,7 +140,7 @@ const ToolHistoryListingContainer = ({ data, loading }) => {
         isOpen={isSidePanelOpen}
         onClose={handleCloseSidebar}
         data={selectedCardData}
-        Component={SelectedComponent}
+        renderer={selectedRenderer}
       />
     </>
   );

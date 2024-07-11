@@ -10,11 +10,14 @@ import { exportToCSV } from '@/services/toolHistory/export';
 /**
  * Renders a drawer component for displaying tool output history.
  *
- * @param {Object} props - The props object containing isOpen, onClose, data, and Component.
+ * @param {Object} props - The props object containing isOpen, onClose, data, and renderer.
  * @returns {JSX.Element} A Drawer component with header, content, and footer buttons.
  */
 const ToolOutputHistoryDrawer = (props) => {
-  const { isOpen, onClose, data, Component } = props;
+  const { isOpen, onClose, data, renderer: Renderer } = props;
+
+  console.log('Drawer data:', data);
+  console.log('Drawer Renderer:', Renderer);
 
   const handleCopyToClipboard = () => {
     copyToClipboard(data, data?.response || []);
@@ -46,7 +49,11 @@ const ToolOutputHistoryDrawer = (props) => {
 
   const renderContent = () => (
     <Grid {...styles.containerGridProps}>
-      {Component && <Component data={data} />}
+      {Renderer ? (
+        <Renderer data={data.response} />
+      ) : (
+        <div>No Renderer Found</div>
+      )}
     </Grid>
   );
 
