@@ -79,8 +79,12 @@ const SignUpForm = (props) => {
 
   const passwordMatch = password.value === reEnterPassword.value;
 
-  let helperText = 'Email Address'; // Default helper text is the label
-  let infoText = null; // Initially no info text
+  let emailHeaderText = 'Email Address'; // Default helper text is the label
+  let emailErrorText = null; // Initially no info text
+  const passwordHeaderText = 'Password';
+  let passwordErrorText = null; // Initially no info text for password
+  const reEnterHeaderText = 'Re-enter Password';
+  let reEnterErrorText = null;
 
   const setReEnterPasswordStatus = () => {
     if (passwordMatch && password.valid && reEnterPassword.valid) {
@@ -167,8 +171,8 @@ const SignUpForm = (props) => {
     }
 
     if (!email.valid && email.value) {
-      helperText = ''; // Clear helper text when invalid to make room for info icon
-      infoText = 'Invalid Email Address'; // Display info text when email is invalid
+      emailHeaderText = ''; // Clear helper text when invalid to make room for info icon
+      emailErrorText = 'Invalid Email Address'; // Display info text when email is invalid
     }
 
     return (
@@ -179,20 +183,20 @@ const SignUpForm = (props) => {
           label="Email Address"
           placeholderText="Email address"
           error={!!error.email}
-          helperText={helperText}
+          helperText={emailHeaderText}
           state={email.status}
           control={control}
           ref={register}
           focused
         />
-        {infoText && (
+        {emailErrorText && (
           <Grid container alignItems="center" spacing={1} marginTop={-5}>
             <Grid item>
               <InfoIcon color="error" />
             </Grid>
             <Grid item>
               <Typography variant="body2" color="error" fontSize="small">
-                {infoText}
+                {emailErrorText}
               </Typography>
             </Grid>
           </Grid>
@@ -229,6 +233,13 @@ const SignUpForm = (props) => {
   const renderPasswordAndConfirmPasswordInputs = () => {
     if (step === AUTH_STEPS.EMAIL) return null;
 
+    if (!password.valid && password.value) {
+      passwordErrorText = AUTH_REGEX.password.message; // Display info text when password is invalid
+    }
+    if (!passwordMatch) {
+      reEnterErrorText = 'Passwords do not match';
+    }
+
     return (
       <>
         <AuthTextField
@@ -237,34 +248,50 @@ const SignUpForm = (props) => {
           label="Password"
           placeholderText="Enter Password"
           error={!!error.password}
-          helperText={
-            !password.valid && !!password.value
-              ? AUTH_REGEX.password.message
-              : error.password?.message
-          }
+          helperText={passwordHeaderText}
           state={password.status}
           control={control}
           ref={register}
           isPasswordField
           focused
         />
+        {passwordErrorText && (
+          <Grid container alignItems="center" spacing={1} marginTop={-7}>
+            <Grid item>
+              <InfoIcon color="error" />
+            </Grid>
+            <Grid item>
+              <Typography variant="body2" color="error" fontSize="small">
+                {passwordErrorText}
+              </Typography>
+            </Grid>
+          </Grid>
+        )}
         <AuthTextField
           id="reEnterPassword"
           name="reEnterPassword"
           label="Re-Enter Password"
           placeholderText="Re-Enter Password"
           error={!!error.reEnterPassword}
-          helperText={
-            !passwordMatch && !!password.value
-              ? 'Password does not match'
-              : error.reEnterPassword?.message
-          }
+          helperText={reEnterHeaderText}
           state={setReEnterPasswordStatus()}
           control={control}
           ref={register}
           isPasswordField
           focused
         />
+        {reEnterErrorText && (
+          <Grid container alignItems="center" spacing={1} marginTop={-7}>
+            <Grid item>
+              <InfoIcon color="error" />
+            </Grid>
+            <Grid item>
+              <Typography variant="body2" color="error" fontSize="small">
+                {reEnterErrorText}
+              </Typography>
+            </Grid>
+          </Grid>
+        )}
       </>
     );
   };
