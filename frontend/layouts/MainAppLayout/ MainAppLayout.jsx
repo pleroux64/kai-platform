@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
-
 import { Grid, useMediaQuery } from '@mui/material';
 import Head from 'next/head';
-
+import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AppDisabled from '@/components/AppDisabled';
@@ -25,6 +24,7 @@ import { setLoading } from '@/redux/slices/authSlice';
 const MainAppLayout = (props) => {
   const { children, extraContentProps, isToolPage } = props;
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const auth = useSelector((state) => state.auth);
   const user = useSelector((state) => state.user);
@@ -52,7 +52,7 @@ const MainAppLayout = (props) => {
   const renderApp = () => {
     return (
       <>
-        <SideMenu />
+        {router.pathname !== '/404' && <SideMenu />}
         <Grid {...styles.contentGridProps(extraContentProps, isToolPage)}>
           {children}
         </Grid>

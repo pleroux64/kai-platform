@@ -89,8 +89,10 @@ const pageNotFoundStyles = {
     color: 'black',
     textAlign: 'center',
     fontFamily: 'Satoshi Black',
-    fontSize: { laptop: '42px', desktop: '46px', desktopMedium: '50px' },
-    lineHeight: '92px',
+    fontSize: { laptop: '30px', desktop: '35px', desktopMedium: '45px' },
+    lineHeight: '60px',
+    maxWidth: '600px',
+    overflowWrap: 'break-word',
   },
   bodyGridProps: {
     container: true,
@@ -104,7 +106,7 @@ const pageNotFoundStyles = {
     color: 'black',
     textAlign: 'center',
     fontFamily: 'Satoshi Medium',
-    fontSize: '18px',
+    fontSize: '24px',
     lineHeight: '30px',
   },
   buttonGridProps: {
@@ -133,12 +135,24 @@ const pageNotFoundStyles = {
   titleProps: {
     fontSize: { laptop: '80px', desktop: '100px', desktopMedium: '140px' },
     fontFamily: 'Ethnocentric Regular Italics',
+    color: '#7549FF',
     sx: {
       textShadow: '0px 4px 30px rgba(26, 214, 161, 0.24)',
       background: (theme) => theme.palette.primary.main,
       WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
     },
+  },
+  zeroWrapperProps: {
+    position: 'relative',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emojiProps: {
+    position: 'absolute',
+    fontSize: '1em',
+    top: '-11%',
+    right: '-45%',
   },
   submitButtonProps: {
     color: 'purple',
@@ -180,15 +194,59 @@ const pageNotFoundStyles = {
   },
   star2Props: {
     position: 'absolute',
-    bottom: '10%',
-    left: '30%',
+    bottom: '50%',
+    right: '10%',
     width: 36,
   },
   star3Props: {
     position: 'absolute',
-    top: 0,
-    right: '18%',
+    top: '18%',
+    right: '32%',
     width: 42,
+  },
+  titleContainerProps: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  logoGridProps: {
+    container: true,
+    item: true,
+    columnGap: 1,
+    width: 'auto',
+    justifyContent: 'center',
+    alignItems: 'center',
+    mb: 8,
+    sx: {
+      cursor: 'pointer',
+    },
+    px: { laptop: 2, desktop: 3, desktopMedium: 4 },
+  },
+  logoutGridProps: {
+    container: true,
+    item: true,
+    width: '100%',
+    px: { laptop: 1, desktop: 1.5, desktopMedium: 2 },
+  },
+  topTitleGridProps: {
+    container: true,
+    item: true,
+    mobileSmall: true,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  topTitleProps: {
+    fontFamily: 'Ethnocentric Regular',
+    fontSize: '36px',
+    color: 'black',
+  },
+  topSubtitleProps: {
+    fontFamily: 'Satoshi Bold',
+    fontSize: '16px',
+    color: '#AD83FF',
+    textAlign: 'left',
   },
 };
 
