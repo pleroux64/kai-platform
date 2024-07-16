@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import { Grid, useMediaQuery } from '@mui/material';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
