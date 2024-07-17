@@ -256,7 +256,13 @@ const SignUpForm = (props) => {
           focused
         />
         {passwordErrorText && (
-          <Grid container alignItems="center" spacing={1} marginTop={-7}>
+          <Grid
+            container
+            alignItems="center"
+            spacing={1}
+            marginTop={-5}
+            marginBottom={-1}
+          >
             <Grid item>
               <InfoIcon color="error" />
             </Grid>
@@ -281,7 +287,13 @@ const SignUpForm = (props) => {
           focused
         />
         {reEnterErrorText && (
-          <Grid container alignItems="center" spacing={1} marginTop={-7}>
+          <Grid
+            container
+            alignItems="center"
+            spacing={1}
+            marginTop={-5}
+            marginBottom={-4}
+          >
             <Grid item>
               <InfoIcon color="error" />
             </Grid>
