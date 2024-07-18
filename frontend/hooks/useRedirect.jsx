@@ -14,7 +14,12 @@ import fetchUserData from '@/redux/thunks/user'
 
 const redirectRegex = /\/redirect.*/
 
-const useRedirect = (firestore, functions, handleOpenSnackBar) => {
+const useRedirect = (
+  firestore,
+  functions,
+  handleOpenSnackBar,
+  handleAuthSnackBar
+) => {
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -74,7 +79,6 @@ const useRedirect = (firestore, functions, handleOpenSnackBar) => {
 
   useEffect(() => {
     const isRedirectRoute = redirectRegex.test(asPath)
-
     if (isRedirectRoute) {
       const handleVerifyEmail = async () => {
         try {
@@ -83,6 +87,12 @@ const useRedirect = (firestore, functions, handleOpenSnackBar) => {
           await applyActionCode(auth, oobCode)
 
           dispatch(setEmailVerified(true))
+
+          // delete this after testing
+          alert('Email verified!')
+
+          // snackbar for sign in the first time
+          handleAuthSnackBar(true)
           router.push(`${ROUTES.HOME}`)
         } catch (error) {
           handleOpenSnackBar(ALERT_COLORS.ERROR, 'Unable to verify email')

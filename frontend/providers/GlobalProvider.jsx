@@ -5,6 +5,7 @@ import { Provider, useDispatch } from 'react-redux'
 
 import useRedirect from '@/hooks/useRedirect'
 
+import AuthSnackBar from '@/components/AuthSnackBar'
 import SnackBar from '@/components/SnackBar'
 
 import { setLoading, setUser } from '@/redux/slices/authSlice'
@@ -26,16 +27,26 @@ const AuthProvider = (props) => {
   const [open, setOpen] = useState(false)
   const [severity, setSeverity] = useState('success')
   const [message, setMessage] = useState('Default Message')
+  const [authSnackBarTitle, setAuthSnackBarTitle] = useState('')
+  const [activeSnackBar, setActiveSnackBar] = useState('') // Set active snackbar
 
   const handleOpenSnackBar = (newSeverity, newMessage) => {
+    setActiveSnackBar('openSnackBar')
     setSeverity(newSeverity)
     setMessage(newMessage)
+    setOpen(true)
+  }
+
+  const handleAuthSnackBar = (signUp) => {
+    setActiveSnackBar('authSnackBar')
+    setAuthSnackBarTitle(signUp ? 'Sign Up Successful!' : 'Log In Successful!')
     setOpen(true)
   }
 
   const memoizedValue = useMemo(() => {
     return {
       handleOpenSnackBar,
+      handleAuthSnackBar,
     }
   }, [])
 
@@ -59,7 +70,7 @@ const AuthProvider = (props) => {
     }
   }, [])
 
-  useRedirect(firestore, functions, handleOpenSnackBar)
+  useRedirect(firestore, functions, handleOpenSnackBar, handleAuthSnackBar)
 
   const handleClose = () => {
     setOpen(false)
@@ -68,12 +79,20 @@ const AuthProvider = (props) => {
   return (
     <AuthContext.Provider value={memoizedValue}>
       {children}
-      <SnackBar
-        open={open}
-        severity={severity}
-        message={message}
-        handleClose={handleClose}
-      />
+      {activeSnackBar === 'openSnackBar' ? (
+        <SnackBar
+          open={open}
+          severity={severity}
+          message={message}
+          handleClose={handleClose}
+        />
+      ) : (
+        <AuthSnackBar
+          open={open}
+          title={authSnackBarTitle}
+          handleClose={handleClose}
+        />
+      )}
     </AuthContext.Provider>
   )
 }
