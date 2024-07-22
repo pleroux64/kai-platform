@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import GradientOutlinedButton from '@/components/GradientOutlinedButton';
 import MainAppLayout from '@/layouts/MainAppLayout';
 
-import comet from '@/assets/images/comet.png';
 import Planet from '@/assets/svg/planet.svg';
 import Star from '@/assets/svg/Star_3.svg';
 import YellowStar from '@/assets/svg/yellowStar.svg';

@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { Grid, Typography } from '@mui/material';
 
 import { OutputHistoryCardSkeleton } from '../HistoryCard';
-import SlidePanel from '../SlidePanel/SlidePanel';
 import ToolHistoryCard, { ToolCardSkeleton } from '../ToolHistoryCard';
 import ToolOutputHistoryDrawer from '../ToolOutputHistoryDrawer/ToolOutputHistoryDrawer';
 
@@ -17,7 +16,7 @@ const HistoryListingContainer = ({ data, loading }) => {
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
   const [selectedCardData, setSelectedCardData] = useState(null);
 
-  const renderLoader = () => (
+  /* const renderLoader = () => ( 
     <Grid {...styles.containerGridProps}>
       <Grid {...styles.innerListGridProps}>
         {LOADER_HISTS.map((tool) => (
@@ -26,6 +25,7 @@ const HistoryListingContainer = ({ data, loading }) => {
       </Grid>
     </Grid>
   );
+  */
 
   const loader = () => {
     return (
