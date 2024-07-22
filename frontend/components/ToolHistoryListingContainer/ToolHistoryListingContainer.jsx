@@ -2,21 +2,20 @@ import { useState } from 'react';
 
 import { Grid, Typography } from '@mui/material';
 
-import { OutputHistoryCardSkeleton } from '../HistoryCard';
-import ToolHistoryCard from '../ToolHistoryCard';
+import ToolHistoryCard, { ToolCardSkeleton } from '../ToolHistoryCard';
 import ToolOutputHistoryDrawer from '../ToolOutputHistoryDrawer/ToolOutputHistoryDrawer';
 
 import styles from './styles';
 
-import { transformToolData } from '@/services/history/transformToolData';
+import { transformToolData } from '@/utils/ToolHistoryUtils';
 
 const LOADER_HISTS = new Array(4).fill().map((_, index) => ({ id: index + 1 }));
 
-const HistoryListingContainer = ({ data, loading }) => {
+const ToolHistoryListingContainer = ({ data, loading }) => {
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
   const [selectedCardData, setSelectedCardData] = useState(null);
 
-  /* const renderLoader = () => ( 
+  const renderLoader = () => (
     <Grid {...styles.containerGridProps}>
       <Grid {...styles.innerListGridProps}>
         {LOADER_HISTS.map((tool) => (
@@ -25,22 +24,8 @@ const HistoryListingContainer = ({ data, loading }) => {
       </Grid>
     </Grid>
   );
-  */
 
-  const loader = () => {
-    return (
-      <Grid {...styles.containerGridProps}>
-        <Grid {...styles.innerListGridProps}>
-          {LOADER_HISTS?.map((tool) => (
-            <OutputHistoryCardSkeleton key={tool.id} />
-          ))}
-          330603
-        </Grid>
-      </Grid>
-    );
-  };
-  if (loading) return loader();
-  if (!data) return <Typography>No data available</Typography>;
+  if (loading) return renderLoader();
 
   const handleOpenSidebar = (cardData) => {
     setSelectedCardData(cardData);
@@ -62,20 +47,13 @@ const HistoryListingContainer = ({ data, loading }) => {
   const renderCards = ({ category }) => (
     <Grid {...styles.containerGridProps}>
       <Grid {...styles.innerListGridProps}>
-        {data?.[category].map((item) => {
+        {data?.[category]?.map((item) => {
           const transformedData = transformToolData(item);
-
-          const { title, content, backgroundImageUrl, logo, creationDate } =
-            transformedData;
 
           return (
             <ToolHistoryCard
               key={item.id}
-              title={title}
-              content={content}
-              backgroundImageUrl={backgroundImageUrl}
-              logo={logo}
-              creationDate={creationDate}
+              {...transformedData}
               onOpen={() => handleOpenSidebar(transformedData)}
             />
           );
@@ -155,4 +133,4 @@ const HistoryListingContainer = ({ data, loading }) => {
   );
 };
 
-export default HistoryListingContainer;
+export default ToolHistoryListingContainer;
