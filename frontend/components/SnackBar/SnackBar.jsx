@@ -1,4 +1,4 @@
-import { Alert, Snackbar } from '@mui/material';
+import { Alert, Snackbar, Typography } from '@mui/material';
 
 import styles from './styles';
 
@@ -8,7 +8,7 @@ import styles from './styles';
  * @return {ReactElement} The rendered Snackbar component.
  */
 const SnackBar = (props) => {
-  const { open, handleClose, message, severity } = props;
+  const { open, handleClose, message, severity, title } = props;
 
   return (
     <Snackbar
@@ -17,12 +17,11 @@ const SnackBar = (props) => {
       onClose={handleClose}
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
     >
-      <Alert
-        sx={styles.alert(severity)}
-        severity={severity}
-        onClose={handleClose}
-      >
-        {message}
+      <Alert severity={severity} onClose={handleClose} style={styles.alert}>
+        <Typography variant="h6" gutterBottom>
+          {title}
+        </Typography>
+        <Typography variant="body2">{message}</Typography>
       </Alert>
     </Snackbar>
   );

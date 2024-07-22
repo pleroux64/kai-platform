@@ -1,14 +1,13 @@
 import { Box, Grid, Typography, useTheme } from '@mui/material';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import GradientOutlinedButton from '@/components/GradientOutlinedButton';
 import MainAppLayout from '@/layouts/MainAppLayout';
 
-import Comet from '@/assets/images/Comet.png';
-
-import LargeLogo from '@/assets/svg/MenuLogo.svg';
+import comet from '@/assets/images/comet.png';
+import Planet from '@/assets/svg/planet.svg';
 import Star from '@/assets/svg/Star_3.svg';
+import YellowStar from '@/assets/svg/yellowStar.svg';
 
 import ROUTES from '@/constants/routes';
 
@@ -31,11 +30,8 @@ const PageNotFound = () => {
     return (
       <Grid {...pageNotFoundStyles.titleGridProps}>
         <Typography {...pageNotFoundStyles.subtitleProps}>
-          Oops, it seems like you&apos;ve entered a black hole!
+          Lost in the Digital Cosmos? ☄️
         </Typography>
-        <Box {...pageNotFoundStyles.star2Props}>
-          <Star />
-        </Box>
       </Grid>
     );
   };
@@ -44,9 +40,10 @@ const PageNotFound = () => {
     return (
       <Grid {...pageNotFoundStyles.bodyGridProps}>
         <Typography {...pageNotFoundStyles.bodyProps}>
-          Don&apos;t worry, our trust AI, ReX, is here to help navigate you back
-          to the known universe. Try checking the URL or head back to our
-          homepage to continue your tech odyssey.
+          Oops, it seems you&apos;ve entered a black hole! Don&apos;t worry, our
+          trusty AI, ReX, is here to help navigate you back to the known
+          universe. Try checking the URL or head back to our homepage to
+          continue your tech odyssey.
         </Typography>
       </Grid>
     );
@@ -58,28 +55,10 @@ const PageNotFound = () => {
         <GradientOutlinedButton
           bgcolor={theme.palette.Common.White['100p']}
           clickHandler={handleRouteToHome}
-          text="Back to Homepage"
+          text="Go to Homepage"
           textColor="white"
           {...pageNotFoundStyles.submitButtonProps}
         />
-      </Grid>
-    );
-  };
-  const renderLogo = () => {
-    return (
-      <Grid
-        onClick={() => router.push(ROUTES.HOME)}
-        {...pageNotFoundStyles.logoGridProps}
-      >
-        <Grid {...pageNotFoundStyles.logoImageGridProps}>
-          <LargeLogo />
-        </Grid>
-        <Grid {...pageNotFoundStyles.topTitleGridProps}>
-          <Typography {...pageNotFoundStyles.topTitleProps}>KAI.AI</Typography>
-          <Typography {...pageNotFoundStyles.topSubtitleProps}>
-            AI Teaching Assistant
-          </Typography>
-        </Grid>
       </Grid>
     );
   };
@@ -87,18 +66,7 @@ const PageNotFound = () => {
   const renderTopContent = () => {
     return (
       <Grid {...pageNotFoundStyles.sectionGridProps}>
-        <Box {...pageNotFoundStyles.titleContainerProps}>
-          <Typography {...pageNotFoundStyles.titleProps}>
-            4
-            <Box {...pageNotFoundStyles.zeroWrapperProps}>
-              0
-              <Box {...pageNotFoundStyles.cometProps}>
-                <Image src={Comet} alt="kai logo" />
-              </Box>
-            </Box>
-            4
-          </Typography>
-        </Box>
+        <Typography {...pageNotFoundStyles.titleProps}>404</Typography>
       </Grid>
     );
   };
@@ -128,9 +96,16 @@ const PageNotFound = () => {
   const renderIcons = () => {
     return (
       <>
-        <Box {...pageNotFoundStyles.yellowStarProps} />
-        <Box {...pageNotFoundStyles.planetProps} />
+        <Box {...pageNotFoundStyles.yellowStarProps}>
+          <YellowStar />
+        </Box>
+        <Box {...pageNotFoundStyles.planetProps}>
+          <Planet />
+        </Box>
         <Box {...pageNotFoundStyles.star1Props}>
+          <Star />
+        </Box>
+        <Box {...pageNotFoundStyles.star2Props}>
           <Star />
         </Box>
         <Box {...pageNotFoundStyles.star3Props}>
@@ -145,7 +120,6 @@ const PageNotFound = () => {
       {renderRadialBackground()}
       <Grid {...pageNotFoundStyles.contentGridProps}>
         {renderIcons()}
-        {renderLogo()}
         {renderTopContent()}
         {renderBottomContent()}
       </Grid>

@@ -151,6 +151,7 @@ const SignUpForm = (props) => {
       try {
         await signUp(email.value, password.value, fullName.value);
         handleOpenSnackBar(
+          'Sign Up Successful',
           ALERT_COLORS.SUCCESS,
           'Account created successfully'
         );
@@ -158,7 +159,7 @@ const SignUpForm = (props) => {
         setEmail(email.value);
         handleSwitch();
       } catch (err) {
-        handleOpenSnackBar(ALERT_COLORS.ERROR, err.message);
+        handleOpenSnackBar('Sign Up Failed', ALERT_COLORS.ERROR, err.message);
       } finally {
         setLoading(false);
       }

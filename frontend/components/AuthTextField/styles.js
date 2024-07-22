@@ -54,6 +54,16 @@ const styles = {
       bgcolor: (theme) => theme.palette.Greyscale[100],
     },
   },
+  errorMessage: (error) => ({
+    error,
+    marginLeft: '.5rem',
+    padding: '0',
+    fontFamily: 'Satoshi Bold',
+    border: 'none',
+  }),
+  textFeildDiv: {
+    width: '100%',
+  },
 };
 
 export default styles;

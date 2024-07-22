@@ -148,11 +148,11 @@ const pageNotFoundStyles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
-  emojiProps: {
+  cometProps: {
     position: 'absolute',
-    fontSize: '1em',
-    top: '-11%',
-    right: '-45%',
+    top: '-12%',
+    right: '-53%',
+    marginLeft: '30%',
   },
   submitButtonProps: {
     color: 'purple',

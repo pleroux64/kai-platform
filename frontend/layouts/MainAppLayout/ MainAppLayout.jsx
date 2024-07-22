@@ -53,7 +53,9 @@ const MainAppLayout = (props) => {
   const renderApp = () => {
     return (
       <>
-        {router.pathname !== '/404' && <SideMenu />}
+        {router.pathname !== '/404' && router.pathname !== '/503' && (
+          <SideMenu />
+        )}
         <Grid {...styles.contentGridProps(extraContentProps, isToolPage)}>
           {children}
         </Grid>

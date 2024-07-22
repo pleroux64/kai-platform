@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 import { Grid, Typography } from '@mui/material';
 
+import { OutputHistoryCardSkeleton } from '../HistoryCard';
+import SlidePanel from '../SlidePanel/SlidePanel';
 import ToolHistoryCard, { ToolCardSkeleton } from '../ToolHistoryCard';
 import ToolOutputHistoryDrawer from '../ToolOutputHistoryDrawer/ToolOutputHistoryDrawer';
 
@@ -11,15 +13,7 @@ import { transformToolData } from '@/services/history/transformToolData';
 
 const LOADER_HISTS = new Array(4).fill().map((_, index) => ({ id: index + 1 }));
 
-/**
- * Renders the Tool History Listing Container component.
- *
- * @param {object} props - The props object.
- * @param {Array} props.data - The data to be displayed in the container.
- * @param {boolean} props.loading - The loading state.
- * @returns {JSX.Element} The rendered Tool History Listing Container component.
- */
-const ToolHistoryListingContainer = ({ data, loading }) => {
+const HistoryListingContainer = ({ data, loading }) => {
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
   const [selectedCardData, setSelectedCardData] = useState(null);
 
@@ -33,7 +27,20 @@ const ToolHistoryListingContainer = ({ data, loading }) => {
     </Grid>
   );
 
-  if (loading) return renderLoader();
+  const loader = () => {
+    return (
+      <Grid {...styles.containerGridProps}>
+        <Grid {...styles.innerListGridProps}>
+          {LOADER_HISTS?.map((tool) => (
+            <OutputHistoryCardSkeleton key={tool.id} />
+          ))}
+          330603
+        </Grid>
+      </Grid>
+    );
+  };
+  if (loading) return loader();
+  if (!data) return <Typography>No data available</Typography>;
 
   const handleOpenSidebar = (cardData) => {
     setSelectedCardData(cardData);
@@ -148,4 +155,4 @@ const ToolHistoryListingContainer = ({ data, loading }) => {
   );
 };
 
-export default ToolHistoryListingContainer;
+export default HistoryListingContainer;
