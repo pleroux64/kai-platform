@@ -16,7 +16,7 @@ import pageNotFoundStyles from '@/styles/pageNotFoundStyles';
  *
  * @return {JSX.Element} The JSX element representing the page.
  */
-const PageNotFound = () => {
+const NetError = () => {
   const router = useRouter();
   const theme = useTheme();
 
@@ -102,8 +102,8 @@ const PageNotFound = () => {
   );
 };
 
-PageNotFound.getLayout = function getLayout(page) {
+NetError.getLayout = function getLayout(page) {
   return <MainAppLayout>{page}</MainAppLayout>;
 };
 
-export default PageNotFound;
+export default NetError;
