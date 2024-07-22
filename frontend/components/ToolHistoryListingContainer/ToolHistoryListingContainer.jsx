@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Grid, Typography } from '@mui/material';
 
 import { OutputHistoryCardSkeleton } from '../HistoryCard';
-import ToolHistoryCard, { ToolCardSkeleton } from '../ToolHistoryCard';
+import ToolHistoryCard from '../ToolHistoryCard';
 import ToolOutputHistoryDrawer from '../ToolOutputHistoryDrawer/ToolOutputHistoryDrawer';
 
 import styles from './styles';
