@@ -2,6 +2,8 @@ import { Alert, Snackbar } from '@mui/material';
 
 import ALERT_COLORS from '@/constants/notification';
 
+import styles from './styles';
+
 /**
  * Renders a Snackbar component with alert messages.
  *
@@ -18,7 +20,7 @@ const SnackBar = (props) => {
       color={ALERT_COLORS[severity]}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
     >
-      <Alert severity={severity} onClose={handleClose}>
+      <Alert severity={severity} onClose={handleClose} style={styles.alert}>
         {message}
       </Alert>
     </Snackbar>

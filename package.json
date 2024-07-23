@@ -18,5 +18,9 @@
   },
   "devDependencies": {
     "firebase-tools": "^9.10.0"
+  },
+  "dependencies": {
+    "@mui/system": "^5.16.1",
+    "mui": "^0.0.1"
   }
 }

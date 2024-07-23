@@ -1,9 +1,11 @@
 {
   "projects": {
     "default": "kai-notificationsv2"
+    "default": "kai-notificationsv2"
   },
   "targets": {
     "kai-notificationsv2": {
+    "test4-2a3ef": {
       "hosting": {
         "next": [
           "kai-notificationsv2"
